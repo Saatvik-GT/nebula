@@ -1,5 +1,26 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
+
+const brooklyn = localFont({
+  variable: "--font-brooklyn",
+  display: "swap",
+  src: [
+    { path: "./fonts/Brooklyn-Normal.ttf", weight: "400", style: "normal" },
+    { path: "./fonts/Brooklyn-Italic.ttf", weight: "400", style: "italic" },
+    { path: "./fonts/Brooklyn-SemiBold.ttf", weight: "600", style: "normal" },
+    { path: "./fonts/Brooklyn-SemiBoldItalic.ttf", weight: "600", style: "italic" },
+    { path: "./fonts/Brooklyn-Bold.ttf", weight: "700", style: "normal" },
+    { path: "./fonts/Brooklyn-BoldItalic.ttf", weight: "700", style: "italic" },
+    { path: "./fonts/Brooklyn-Heavy.ttf", weight: "800", style: "normal" },
+  ],
+});
+
+const netron = localFont({
+  variable: "--font-netron",
+  display: "swap",
+  src: [{ path: "./fonts/Netron.otf", weight: "400", style: "normal" }],
+});
 
 /**
  * DIRECTION CONTRACT — kept as a real HTML comment in the emitted markup so it
@@ -39,7 +60,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${brooklyn.variable} ${netron.variable}`}>
       <body className="antialiased">
         <div hidden dangerouslySetInnerHTML={{ __html: DIRECTION_CONTRACT }} />
         {children}

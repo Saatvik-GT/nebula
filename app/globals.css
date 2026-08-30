@@ -3,21 +3,24 @@
 /* Evaluator shell: quiet, light, and task-first. */
 
 :root {
-  --page: #f3f5f6;
-  --surface: #fbfcfd;
-  --surface-raised: #e9eef1;
-  --text: #172126;
-  --muted: #626e74;
-  --border: #d5dde1;
-  --accent: #285f78;
-  --accent-bright: #347b99;
-  --accent-contrast: #ffffff;
-  --success: #347052;
-  --warning: #a86719;
-  --danger: #b5423b;
+  /* Ultra-dark, pitch-black OLED theme — true #000000 ground. */
+  --page: #000000;
+  --surface: #0a0a0a;
+  --surface-raised: #161616;
+  --text: #f4f5f5;
+  --muted: #969b9e;
+  --border: #242424;
+  --accent: #2f6f8c;
+  --accent-bright: #52aecf;
+  --accent-contrast: #04141b;
+  --success: #4ba878;
+  --warning: #d29542;
+  --danger: #e06a63;
 
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-brooklyn), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-netron), var(--font-brooklyn), ui-sans-serif,
+    system-ui, sans-serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono",
     "Segoe UI Mono", Menlo, Consolas, monospace;
 
@@ -41,6 +44,7 @@
   --color-danger: var(--danger);
 
   --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
   --font-mono: var(--font-mono);
 
   --radius-control: 8px;
@@ -55,12 +59,12 @@
 }
 
 html {
-  color-scheme: light;
-  background: var(--page);
+  color-scheme: dark;
+  background: #000000;
 }
 
 body {
-  background: var(--page);
+  background: #000000;
   color: var(--text);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -113,14 +117,14 @@ input::placeholder {
 }
 
 .defense-workspace {
-  --page: #10171b;
-  --surface: #161f24;
-  --surface-raised: #1d292f;
+  --page: #000000;
+  --surface: #0a0a0a;
+  --surface-raised: #161616;
   --text: #e6ecef;
   --muted: #9ba8ae;
-  --border: #2c3940;
-  --accent-bright: #4b8da8;
-  --accent-contrast: #ffffff;
+  --border: #242424;
+  --accent-bright: #52aecf;
+  --accent-contrast: #04141b;
   color-scheme: dark;
   background: var(--page);
   color: var(--text);

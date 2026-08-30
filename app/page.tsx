@@ -19,7 +19,7 @@ export default function LandingPage() {
           <div className="mx-auto flex min-h-[680px] max-w-[1200px] items-center px-5 py-20 sm:px-8 lg:py-28">
           <div className="max-w-[680px]">
             <p className="font-mono text-[12px] text-accent-bright">Executable Project Defense</p>
-            <h1 className="mt-6 max-w-[12ch] text-[clamp(3rem,6vw,5.25rem)] font-semibold leading-[0.98] tracking-[-0.04em] text-white text-balance">
+            <h1 className="mt-6 max-w-[12ch] font-display text-[clamp(3rem,6vw,5.25rem)] font-semibold leading-[0.98] tracking-[-0.02em] text-white text-balance">
               Examine the work, not the explanation.
             </h1>
             <p className="mt-7 max-w-[60ch] text-[16px] leading-7 text-white/70 text-pretty">

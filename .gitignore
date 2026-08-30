@@ -47,3 +47,6 @@ next-env.d.ts
 
 # impeccable tooling output
 .impeccable/
+
+# local font source files (packaged copies live in app/fonts)
+/fontfiles/

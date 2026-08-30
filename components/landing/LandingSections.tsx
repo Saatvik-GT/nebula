@@ -222,7 +222,7 @@ export function LandingSections() {
 
 function SectionHead({ title }: { title: string }) {
   return (
-    <h2 className="max-w-[46ch] text-[clamp(1.5rem,3vw,2.1rem)] font-semibold leading-[1.15] tracking-[-0.02em] text-text text-pretty">
+    <h2 className="max-w-[46ch] font-display text-[clamp(1.5rem,3vw,2.1rem)] font-semibold leading-[1.15] tracking-[-0.01em] text-text text-pretty">
       {title}
     </h2>
   );
