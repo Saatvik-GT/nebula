@@ -1,20 +1,53 @@
+"use client";
+
+import { useRef } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 
-/** Shared product wordmark — evidence-trace mark + two-line lockup. */
+/**
+ * Shared product wordmark. The lockup is a short video clip: a still first
+ * frame at rest, the full animation on hover / keyboard focus, reset to the
+ * first frame when the pointer leaves.
+ */
 export function BrandLockup({ className }: { className?: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const play = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    void v.play().catch(() => {});
+  };
+
+  const reset = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.pause();
+    v.currentTime = 0;
+  };
+
   return (
     <Link
       href="/"
-      className={cn("group inline-flex items-center gap-3", className)}
+      className={cn("group inline-flex items-center", className)}
       aria-label="Executable Project Defense — home"
+      onMouseEnter={play}
+      onMouseLeave={reset}
+      onFocus={play}
+      onBlur={reset}
     >
-      <EvidenceTraceMark className="h-8 w-8 shrink-0" />
-      <span className="font-mono text-[11px] font-medium uppercase leading-[1.25] tracking-[0.18em] text-text">
-        Executable
-        <br />
-        Project Defense
-      </span>
+      <video
+        ref={videoRef}
+        className="block h-11 w-auto select-none sm:h-12"
+        src="/logo_video.mp4"
+        muted
+        loop
+        playsInline
+        preload="auto"
+        disablePictureInPicture
+        aria-hidden="true"
+        onLoadedData={reset}
+        tabIndex={-1}
+      />
     </Link>
   );
 }
