@@ -38,16 +38,13 @@ const KICKER = "font-mono text-[10.5px] uppercase tracking-[0.22em]";
 export function LandingSections() {
   return (
     <div className="relative z-10 border-t border-white/10 bg-black">
-      <section
-        id="how-it-works"
-        className="mx-auto max-w-[1720px] scroll-mt-24 px-3 py-16 sm:px-6 sm:py-20"
-      >
-        <div className="mb-6 flex flex-wrap items-end justify-between gap-3 px-1">
+      <section id="how-it-works" className="w-full scroll-mt-24 py-12 sm:py-16">
+        <div className="mb-6 flex flex-wrap items-end justify-between gap-3 px-4 sm:px-6">
           <p className={`${KICKER} text-white/40`}>The defense, at a glance</p>
           <p className={`${KICKER} text-white/25`}>Platform v0.2.0 · Phase 2</p>
         </div>
 
-        <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[16px] border border-white/12 bg-white/12 lg:h-[80vh] lg:min-h-[640px] lg:grid-cols-12 lg:grid-rows-[1.6fr_1.15fr_0.55fr]">
+        <div className="grid grid-cols-1 gap-px overflow-hidden border-y border-white/12 bg-white/12 lg:h-[82vh] lg:min-h-[640px] lg:grid-cols-12 lg:grid-rows-[1.6fr_1.15fr_0.55fr]">
           {/* T1 — four real states */}
           <article className={`${TILE} bg-[#18220f] lg:col-span-4`}>
             <div>
