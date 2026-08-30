@@ -185,6 +185,16 @@ samp {
   }
 }
 
+@keyframes epd-rule-sweep {
+  0% {
+    transform: translateX(-120%);
+  }
+  50%,
+  100% {
+    transform: translateX(420%);
+  }
+}
+
 @keyframes epd-fade-up {
   from {
     opacity: 0;
