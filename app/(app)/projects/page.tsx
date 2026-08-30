@@ -70,7 +70,7 @@ export default function ProjectsPage() {
         actions={
           <Link
             href="/projects/new"
-            className="inline-flex h-9 items-center gap-2 rounded-[8px] border border-accent-bright/55 bg-accent px-3.5 text-[13px] font-medium text-text transition-colors hover:bg-accent-bright/85"
+            className="inline-flex h-9 items-center gap-2 rounded-[8px] border border-accent bg-accent px-3.5 text-[13px] font-medium text-accent-contrast transition-colors hover:bg-accent-bright"
           >
             <Plus className="h-4 w-4" strokeWidth={2} />
             New Project
