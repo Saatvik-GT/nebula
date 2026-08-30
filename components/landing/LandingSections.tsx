@@ -1,81 +1,15 @@
 import Link from "next/link";
-import {
-  ArrowRight,
-  ArrowUpRight,
-  Camera,
-  FlaskConical,
-  Link2,
-  Lock,
-  MessageSquareText,
-  Terminal,
-  Waypoints,
-  type LucideIcon,
-} from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 /**
- * Below-the-fold anchor sections for the single landing page. Every item here
- * restates a fact already defined in the Frontend Spec (PART B/D) — the four
- * real state-machine stages, the capability strip, the session flow, and the
- * real product routes. No invented marketing copy, metrics, or testimonials.
- *
- * Visual language: an asymmetric bento of bordered boxes on true black that
- * lift and brighten under the pointer, with rotated frame decorations drifting
- * between them.
+ * Below-the-fold content, collapsed into one flush mosaic of coloured tiles on
+ * true black. Every figure and label restates a fact already in the Frontend
+ * Spec — the four real states, the eleven-state machine, the single defense
+ * family, the capability strip, the platform version, and the real product
+ * routes. No invented metrics or testimonials.
  */
 
-type Accent = "blue" | "amber";
-
-const STAGES: {
-  name: string;
-  sub: string;
-  body: string;
-  state: string;
-  output: string;
-  icon: LucideIcon;
-  accent: Accent;
-  offset: string;
-}[] = [
-  {
-    name: "Isolate",
-    sub: "Project snapshot",
-    body: "A read-only snapshot of the submitted project is captured. The original is never touched; every defense runs against the immutable copy.",
-    state: "MAP",
-    output: "snapshot.tar",
-    icon: Camera,
-    accent: "blue",
-    offset: "lg:mt-0",
-  },
-  {
-    name: "Inject",
-    sub: "Validated condition",
-    body: "A challenge from the duplicate_delivery_v1 family is compiled and activated inside the snapshot after its validation gates pass.",
-    state: "WORK_INITIAL",
-    output: "challenge.lock",
-    icon: FlaskConical,
-    accent: "amber",
-    offset: "lg:mt-8",
-  },
-  {
-    name: "Evaluate",
-    sub: "Evidence-first",
-    body: "Sequential and overlapping-delivery checks run in an isolated sandbox. Each run writes a receipt; results drive the session forward or back into revision.",
-    state: "VERIFY_INITIAL / STRESS",
-    output: "4 receipts",
-    icon: Waypoints,
-    accent: "blue",
-    offset: "lg:mt-5",
-  },
-  {
-    name: "Defend",
-    sub: "In context",
-    body: "In the DEFEND stage the student explains the diagnosis and the change in the project's own context. The report is assembled from linked evidence.",
-    state: "DEFEND",
-    output: "report.pdf",
-    icon: MessageSquareText,
-    accent: "amber",
-    offset: "lg:mt-14",
-  },
-];
+const STAGES = ["Isolate", "Inject", "Evaluate", "Defend"];
 
 const FLOW = [
   "CREATED",
@@ -91,34 +25,10 @@ const FLOW = [
   "REPORTED",
 ];
 
-const CAPABILITIES: {
-  title: string;
-  body: string;
-  icon: LucideIcon;
-  accent: Accent;
-  offset: string;
-}[] = [
-  {
-    title: "Immutable snapshot",
-    body: "The examined project is frozen at submission. Diagnosis, edits, and verification all happen against a copy that cannot drift.",
-    icon: Lock,
-    accent: "blue",
-    offset: "lg:mt-0",
-  },
-  {
-    title: "Executable checks",
-    body: "Findings come from executable sequential and overlap checks rather than a static rubric or inferred confidence score.",
-    icon: Terminal,
-    accent: "amber",
-    offset: "lg:mt-8",
-  },
-  {
-    title: "Evidence-linked findings",
-    body: "Every line in the report points back to a check run, a diff, or a receipt. Nothing in the verdict is unsourced.",
-    icon: Link2,
-    accent: "blue",
-    offset: "lg:mt-3",
-  },
+const CAPABILITIES = [
+  "Immutable snapshot",
+  "Executable checks",
+  "Evidence-linked findings",
 ];
 
 const DOCS = [
@@ -132,230 +42,198 @@ const DOCS = [
   { label: "Evaluator dashboard", href: "/dashboard" },
 ];
 
-const accentChip: Record<Accent, string> = {
-  blue: "bg-accent-bright/15 text-accent-bright ring-1 ring-inset ring-accent-bright/30",
-  amber: "bg-[#d29542]/15 text-[#e0a85c] ring-1 ring-inset ring-[#d29542]/30",
-};
-
-/** Shared bento surface: sharp-cornered, hairline-framed, lifts under the pointer. */
-const BOX =
-  "relative flex flex-col rounded-[5px] border border-white/10 bg-white/[0.015] " +
-  "transition-[transform,border-color,background-color,box-shadow] duration-300 ease-out " +
-  "hover:-translate-y-1.5 hover:border-white/25 hover:bg-white/[0.04] " +
-  "hover:shadow-[0_18px_40px_-24px_rgba(0,0,0,0.9)]";
-
-function Diamond({ className = "" }: { className?: string }) {
-  return (
-    <span
-      aria-hidden
-      className={`pointer-events-none absolute hidden rotate-45 border border-white/10 transition-transform duration-700 ease-out lg:block ${className}`}
-    />
-  );
-}
+const TILE = "relative flex flex-col justify-between p-6 lg:p-7 min-h-[190px]";
+const NUM =
+  "font-sans font-extrabold leading-[0.82] tracking-[-0.045em] text-[clamp(3.25rem,7vw,5.75rem)]";
+const KICKER = "font-mono text-[10.5px] uppercase tracking-[0.22em]";
 
 export function LandingSections() {
   return (
     <div className="relative z-10 border-t border-white/10 bg-black">
-      <div className="mx-auto max-w-[1240px] px-5 sm:px-8">
-        {/* How it works — lifecycle bento */}
-        <section
-          id="how-it-works"
-          className="group/sec scroll-mt-24 py-16 sm:py-24"
-        >
-          <p className="text-center font-mono text-[11px] uppercase tracking-[0.28em] text-muted">
-            Lifecycle / four states
-          </p>
-          <h2 className="mx-auto mt-5 max-w-[22ch] text-center font-display text-[clamp(1.7rem,3.6vw,2.6rem)] font-semibold uppercase leading-[1.08] tracking-[-0.01em] text-text text-pretty">
-            The defense lifecycle is four real states of the session
-          </h2>
+      <section
+        id="how-it-works"
+        className="mx-auto max-w-[1240px] scroll-mt-24 px-4 py-16 sm:px-8 sm:py-24"
+      >
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-3">
+          <p className={`${KICKER} text-muted`}>The defense, at a glance</p>
+          <p className={`${KICKER} text-text/35`}>Platform v0.2.0 · Phase 2</p>
+        </div>
 
-          <div className="relative mt-16">
-            <Diamond className="left-[-2.5rem] top-24 h-14 w-14 group-hover/sec:-translate-y-3 group-hover/sec:translate-x-2" />
-            <Diamond className="right-[-2.5rem] bottom-8 h-20 w-20 group-hover/sec:translate-y-3 group-hover/sec:-translate-x-2" />
-            <Diamond className="left-1/2 top-[-2rem] h-9 w-9 group-hover/sec:translate-y-2" />
-
-            <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:items-start lg:gap-5">
-              {STAGES.map((s, i) => {
-                const next = STAGES[i + 1];
-                const Icon = s.icon;
-                return (
-                  <li key={s.name} className={`${BOX} ${s.offset} group p-5`}>
-                    <div className="flex items-center justify-between">
-                      <span
-                        className={`grid h-9 w-9 place-items-center rounded-[4px] ${accentChip[s.accent]}`}
-                      >
-                        <Icon className="h-4 w-4" strokeWidth={1.75} />
-                      </span>
-                      <span className="font-display text-[26px] leading-none tabular-nums text-text/12 transition-colors duration-300 group-hover:text-text/30">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                    </div>
-
-                    <p className="mt-8 font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
-                      {s.state}
-                    </p>
-                    <h3 className="mt-2 font-display text-[18px] font-semibold uppercase tracking-[-0.01em] text-text">
-                      {s.name}
-                    </h3>
-                    <p className="mt-1 text-[12.5px] text-muted">{s.sub}</p>
-
-                    <p className="mt-4 flex-1 text-[12.5px] leading-[1.6] text-muted">
-                      {s.body}
-                    </p>
-
-                    <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-3">
-                      <span className="font-mono text-[9.5px] uppercase tracking-[0.16em] text-text/30">
-                        writes
-                      </span>
-                      <span className="font-mono text-[11.5px] text-text/60 transition-colors duration-300 group-hover:text-accent-bright">
-                        {s.output}
-                      </span>
-                    </div>
-
-                    {next && (
-                      <span
-                        aria-hidden
-                        className="absolute -right-3.5 top-1/2 z-10 hidden -translate-y-1/2 font-mono text-[13px] text-white/20 lg:block"
-                      >
-                        →
-                      </span>
-                    )}
-                  </li>
-                );
-              })}
-            </ol>
-          </div>
-        </section>
-
-        {/* Capabilities bento */}
-        <section
-          id="features"
-          className="group/sec scroll-mt-24 border-t border-white/10 py-16 sm:py-24"
-        >
-          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted">
-            What holds it up
-          </p>
-          <h2 className="mt-5 max-w-[28ch] font-display text-[clamp(1.5rem,3vw,2.2rem)] font-semibold uppercase leading-[1.1] tracking-[-0.01em] text-text text-pretty">
-            Immutable snapshot · Executable checks · Evidence-linked findings
-          </h2>
-
-          <div className="relative mt-14">
-            <Diamond className="right-[10%] top-[-2.5rem] h-12 w-12 group-hover/sec:translate-y-3" />
-            <div className="grid gap-4 md:grid-cols-3 lg:gap-5">
-              {CAPABILITIES.map((c) => {
-                const Icon = c.icon;
-                return (
-                  <div key={c.title} className={`${BOX} ${c.offset} group p-6`}>
-                    <span
-                      className={`grid h-9 w-9 place-items-center rounded-[4px] ${accentChip[c.accent]}`}
-                    >
-                      <Icon className="h-4 w-4" strokeWidth={1.75} />
-                    </span>
-                    <h3 className="mt-8 font-mono text-[12px] uppercase tracking-[0.08em] text-text">
-                      {c.title}
-                    </h3>
-                    <p className="mt-3 text-[13px] leading-[1.65] text-muted">
-                      {c.body}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        {/* Process — state machine in one wide frame */}
-        <section
-          id="process"
-          className="scroll-mt-24 border-t border-white/10 py-16 sm:py-24"
-        >
-          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted">
-            State machine
-          </p>
-          <h2 className="mt-5 max-w-[28ch] font-display text-[clamp(1.5rem,3vw,2.2rem)] font-semibold uppercase leading-[1.1] tracking-[-0.01em] text-text text-pretty">
-            Every session walks the same state machine
-          </h2>
-
-          <div className="mt-12 rounded-[5px] border border-white/10 bg-white/[0.015] p-5 sm:p-7">
-            <div className="flex snap-x gap-2 overflow-x-auto pb-1">
-              {FLOW.map((state, i) => (
-                <span key={state} className="flex shrink-0 items-center gap-2">
-                  <span className="rounded-[4px] border border-white/12 bg-white/[0.03] px-3 py-1.5 font-mono text-[11px] tracking-[0.03em] text-muted transition-colors hover:border-accent-bright/40 hover:text-text">
-                    {state}
-                  </span>
-                  {i < FLOW.length - 1 && (
-                    <span aria-hidden className="text-white/20">
-                      →
-                    </span>
-                  )}
-                </span>
-              ))}
-            </div>
-            <p className="mt-6 max-w-[74ch] text-[13px] leading-[1.7] text-muted">
-              A failed visible check loops back to WORK_INITIAL. A failed hidden
-              check opens WORK_REVISION → VERIFY_REVISION. INVALIDATED, EXPIRED,
-              and CANCELLED are terminal from any state. Only one defense family
-              exists:{" "}
-              <span className="font-mono text-text">duplicate_delivery_v1</span>.
-            </p>
-          </div>
-        </section>
-
-        {/* Docs — surfaces bento */}
-        <section
-          id="docs"
-          className="scroll-mt-24 border-t border-white/10 py-16 sm:py-24"
-        >
-          <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted">
-            Jump in
-          </p>
-          <h2 className="mt-5 max-w-[24ch] font-display text-[clamp(1.5rem,3vw,2.2rem)] font-semibold uppercase leading-[1.1] tracking-[-0.01em] text-text text-pretty">
-            Jump straight into the product surfaces
-          </h2>
-
-          <ul className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {DOCS.map((d) => (
-              <li key={d.href}>
-                <Link href={d.href} className={`${BOX} group h-full p-5`}>
-                  <ArrowUpRight className="h-4 w-4 self-end text-muted transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent-bright" />
-                  <span className="mt-8 text-[13.5px] text-text">{d.label}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        {/* About */}
-        <section
-          id="about"
-          className="scroll-mt-24 border-t border-white/10 py-16 sm:py-24"
-        >
-          <div className="grid gap-6 rounded-[5px] border border-white/10 bg-white/[0.015] p-7 sm:p-10 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div className="grid grid-cols-1 gap-px overflow-hidden rounded-[16px] border border-white/12 bg-white/12 lg:grid-cols-12 lg:grid-rows-[1.6fr_1.15fr_0.55fr] lg:h-[76vh] lg:min-h-[620px]">
+          {/* T1 — four real states */}
+          <article
+            className={`${TILE} bg-[#c6f24e] text-black transition-transform duration-300 hover:-translate-y-0.5 lg:col-span-4`}
+          >
             <div>
-              <h2 className="max-w-[24ch] font-display text-[clamp(1.5rem,3vw,2.2rem)] font-semibold uppercase leading-[1.1] tracking-[-0.01em] text-text text-pretty">
-                The project becomes the examination
-              </h2>
-              <p className="mt-6 max-w-[72ch] text-[14px] leading-[1.75] text-muted">
-                Executable Project Defense introduces a validated condition inside
-                an isolated copy of a submitted project, then reviews how the
-                student diagnoses, changes, verifies, and defends it. The snapshot
-                is immutable, the checks are executable, and every finding is
-                linked to its evidence.
-              </p>
-              <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.2em] text-text/35">
-                Platform v0.2.0 · Phase 2 Prototype
+              <div className="flex items-start gap-4">
+                <p className={NUM}>4</p>
+                <p className={`${KICKER} mt-2 text-black/55`}>
+                  Session
+                  <br />
+                  states
+                </p>
+              </div>
+              <p className="mt-3 max-w-[26ch] text-[13px] font-medium leading-snug">
+                Real state-machine stages the defense walks — nothing inferred.
               </p>
             </div>
-            <Link
-              href="/projects/new"
-              className="group inline-flex h-11 shrink-0 items-center gap-2 rounded-[5px] bg-white px-5 text-[13.5px] font-medium text-black transition-colors hover:bg-white/85"
-            >
-              Import a project
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </Link>
-          </div>
-        </section>
-      </div>
+            <ol className="space-y-1.5 font-mono text-[12px] font-medium">
+              {STAGES.map((s, i) => (
+                <li key={s} className="flex items-center gap-3 border-t border-black/15 pt-1.5">
+                  <span className="text-black/40">{String(i + 1).padStart(2, "0")}</span>
+                  {s}
+                </li>
+              ))}
+            </ol>
+          </article>
+
+          {/* T2 — the state machine */}
+          <article
+            className={`${TILE} bg-[#17a97f] text-black transition-transform duration-300 hover:-translate-y-0.5 lg:col-span-4`}
+          >
+            <div className="flex items-start gap-4">
+              <p className={NUM}>11</p>
+              <p className={`${KICKER} mt-2 text-black/55`}>
+                States in
+                <br />
+                the machine
+              </p>
+            </div>
+            <div className="space-y-3">
+              <p className="font-mono text-[11px] leading-relaxed text-black/75">
+                CREATED → BRIEFING → MAP → WORK_INITIAL → VERIFY_INITIAL → STRESS →
+                WORK_REVISION → VERIFY_REVISION → DEFEND → SUBMITTED → REPORTED
+              </p>
+              <p className="text-[12px] font-medium leading-snug text-black/60">
+                Failed checks loop back; INVALIDATED, EXPIRED and CANCELLED are
+                terminal from any state.
+              </p>
+            </div>
+          </article>
+
+          {/* T3 — event-horizon / identity */}
+          <article
+            className={`${TILE} overflow-hidden bg-[#0b0b0b] text-white transition-transform duration-300 hover:-translate-y-0.5 lg:col-span-4`}
+          >
+            <div
+              aria-hidden
+              className="absolute inset-0"
+              style={{
+                background:
+                  "radial-gradient(90% 80% at 60% 45%, rgba(82,174,207,0.28) 0%, rgba(0,0,0,0) 60%), radial-gradient(closest-side at 60% 45%, rgba(0,0,0,0) 40%, rgba(224,168,92,0.30) 46%, rgba(0,0,0,0) 62%)",
+              }}
+            />
+            <div className="relative flex items-start justify-between">
+              <p className="font-display text-[22px] uppercase tracking-[0.02em]">
+                Defense
+              </p>
+              <Link
+                href="/dashboard"
+                aria-label="Open evaluator dashboard"
+                className="group grid h-8 w-8 place-items-center rounded-full border border-white/25"
+              >
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </Link>
+            </div>
+            <div className="relative">
+              <p className="flex items-center gap-2 text-[13px] text-white/80">
+                <span className="text-accent-bright">✦</span> Evidence-linked · 5.0
+              </p>
+              <p className="mt-2 max-w-[26ch] text-[12px] leading-snug text-white/45">
+                Examine the work, not the explanation.
+              </p>
+            </div>
+          </article>
+
+          {/* T4 — single defense family */}
+          <article
+            className={`${TILE} bg-[#c6a4ff] text-black transition-transform duration-300 hover:-translate-y-0.5 lg:col-span-5`}
+          >
+            <p className={`${KICKER} text-black/55`}>Defense family</p>
+            <div className="flex items-end gap-5">
+              <p className={NUM}>1</p>
+              <p className="mb-2 font-mono text-[13px] font-medium">
+                duplicate_delivery_v1
+              </p>
+            </div>
+            <div className="flex items-center justify-between">
+              <p className="max-w-[30ch] text-[12px] font-medium leading-snug text-black/70">
+                One validated condition, compiled and activated inside the frozen
+                snapshot after its gates pass.
+              </p>
+              <span className="font-mono text-[11px] font-semibold">
+                #Executable_Defense
+              </span>
+            </div>
+          </article>
+
+          {/* T5 — capability strip */}
+          <article
+            className={`${TILE} bg-[#ededed] text-black transition-transform duration-300 hover:-translate-y-0.5 lg:col-span-3`}
+          >
+            <p className={`${KICKER} text-black/55`}>What holds it up</p>
+            <ul className="space-y-2.5">
+              {CAPABILITIES.map((c) => (
+                <li
+                  key={c}
+                  className="font-display text-[15px] uppercase leading-tight tracking-[-0.01em]"
+                >
+                  {c}
+                </li>
+              ))}
+            </ul>
+            <p className="text-[16px] tracking-[0.3em] text-black/35">•••</p>
+          </article>
+
+          {/* T6 — identity / call to action */}
+          <article
+            className={`${TILE} bg-[#f2743c] text-black transition-transform duration-300 hover:-translate-y-0.5 lg:col-span-4`}
+          >
+            <p className={`${KICKER} text-black/55`}>Executable Project Defense</p>
+            <p className="font-display text-[clamp(1.9rem,4vw,2.9rem)] font-semibold uppercase leading-none">
+              Defense
+              <sup className="ml-0.5 text-[0.5em]">+</sup>
+            </p>
+            <div>
+              <p className="font-mono text-[11px] text-black/70">
+                Immutable snapshot · Executable checks
+              </p>
+              <Link
+                href="/dashboard"
+                className="mt-2 inline-flex items-center gap-1.5 text-[13px] font-semibold underline-offset-4 hover:underline"
+              >
+                Create defense →
+              </Link>
+            </div>
+          </article>
+
+          {/* T7 — product surfaces strip */}
+          <article
+            id="docs"
+            className="relative flex flex-col gap-4 bg-[#0b0b0b] p-6 lg:col-span-12 lg:flex-row lg:items-center lg:gap-8 lg:p-7"
+          >
+            <p className={`${KICKER} shrink-0 text-text/40`}>Product surfaces</p>
+            <ul className="flex flex-wrap gap-x-5 gap-y-2">
+              {DOCS.map((d) => (
+                <li key={d.href}>
+                  <Link
+                    href={d.href}
+                    className="group inline-flex items-center gap-1 text-[12.5px] text-text/70 transition-colors hover:text-text"
+                  >
+                    {d.label}
+                    <ArrowUpRight className="h-3.5 w-3.5 text-text/30 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent-bright" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </article>
+        </div>
+
+        {/* hidden anchors kept so existing nav links still resolve */}
+        <span id="features" className="sr-only" />
+        <span id="process" className="sr-only" />
+        <span id="about" className="sr-only" />
+      </section>
 
       <footer className="border-t border-white/10">
         <div className="mx-auto flex max-w-[1240px] flex-col gap-2 px-5 py-8 text-[12px] text-muted sm:flex-row sm:items-center sm:justify-between sm:px-8">
