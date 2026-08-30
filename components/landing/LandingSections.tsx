@@ -1,11 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowUpRight,
-  Camera,
-  FlaskConical,
-  MessageSquareText,
-  Waypoints,
-} from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 /**
  * Below-the-fold anchor sections for the single landing page. Every item here
@@ -16,32 +10,32 @@ import {
 
 const STAGES = [
   {
-    icon: Camera,
     name: "Isolate",
     sub: "Project snapshot",
     body: "A read-only snapshot of the submitted project is captured. The original is never touched; every defense runs against the immutable copy.",
     state: "MAP",
+    output: "snapshot.tar",
   },
   {
-    icon: FlaskConical,
     name: "Inject",
     sub: "Validated condition",
     body: "A challenge from the duplicate_delivery_v1 family is compiled and activated inside the snapshot after its validation gates pass.",
     state: "WORK_INITIAL",
+    output: "challenge.lock",
   },
   {
-    icon: Waypoints,
     name: "Evaluate",
     sub: "Evidence-first",
     body: "Sequential and overlapping-delivery checks run in an isolated sandbox. Each run writes a receipt; results drive the session forward or back into revision.",
     state: "VERIFY_INITIAL / STRESS",
+    output: "4 receipts",
   },
   {
-    icon: MessageSquareText,
     name: "Defend",
     sub: "In context",
     body: "In the DEFEND stage the student explains the diagnosis and the change in the project's own context. The report is assembled from linked evidence.",
     state: "DEFEND",
+    output: "report.pdf",
   },
 ];
 
@@ -89,29 +83,61 @@ export function LandingSections() {
   return (
     <div className="relative z-10 border-t border-border bg-page">
       <div className="mx-auto max-w-[1200px] px-5 sm:px-8">
-        {/* How it works */}
+        {/* How it works — numbered state ledger */}
         <section id="how-it-works" className="scroll-mt-24 py-20 sm:py-28">
-          <SectionHead title="The defense lifecycle is four real states of the session" />
-          <ol className="mt-12 grid gap-y-10 border-y border-border sm:grid-cols-2 lg:grid-cols-4">
-            {STAGES.map((s, i) => (
-              <li key={s.name} className="relative py-6 sm:pr-8 lg:border-r lg:border-border lg:px-6 lg:first:pl-0 lg:last:border-r-0 lg:last:pr-0">
-                <div className="flex items-center gap-3">
-                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-border bg-surface">
-                    <s.icon className="h-4 w-4 text-accent-bright" strokeWidth={1.75} />
-                  </span>
-                </div>
-                <p className="mt-5 font-mono text-[11px] text-muted">
-                  Stage {i + 1} — {s.state}
-                </p>
-                <h3 className="mt-1.5 text-[16px] font-semibold text-text">
-                  {s.name}
-                </h3>
-                <p className="text-[12.5px] text-muted">{s.sub}</p>
-                <p className="mt-3 max-w-[38ch] text-[13px] leading-[1.6] text-muted">
-                  {s.body}
-                </p>
-              </li>
-            ))}
+          <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-muted">
+            Lifecycle / four states
+          </p>
+          <div className="mt-4">
+            <SectionHead title="The defense lifecycle is four real states of the session" />
+          </div>
+
+          <ol className="mt-14 border-t border-border">
+            {STAGES.map((s, i) => {
+              const next = STAGES[i + 1];
+              return (
+                <li
+                  key={s.name}
+                  className="group relative grid grid-cols-1 gap-x-10 gap-y-4 border-b border-border py-8 md:grid-cols-[7rem_1fr] md:py-9 lg:grid-cols-[7rem_15rem_1fr_9rem]"
+                >
+                  <span
+                    aria-hidden
+                    className="absolute left-0 top-0 hidden h-full w-px origin-top scale-y-0 bg-accent-bright transition-transform duration-500 group-hover:scale-y-100 md:block"
+                  />
+                  <div className="font-display text-[clamp(2.25rem,5vw,3.75rem)] leading-none tabular-nums text-text/15 transition-colors duration-300 group-hover:text-accent-bright/70">
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
+
+                  <div className="md:pt-2">
+                    <p className="font-mono text-[10.5px] uppercase tracking-[0.2em] text-muted">
+                      {s.state}
+                    </p>
+                    <h3 className="mt-2 font-display text-[17px] font-semibold uppercase tracking-[-0.01em] text-text">
+                      {s.name}
+                    </h3>
+                    <p className="mt-1 text-[12.5px] text-muted">{s.sub}</p>
+                    {next && (
+                      <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.18em] text-text/25">
+                        ↓ {next.state.split(" / ")[0]}
+                      </p>
+                    )}
+                  </div>
+
+                  <p className="max-w-[54ch] text-[13px] leading-[1.7] text-muted md:pt-2 lg:self-start lg:text-[13.5px]">
+                    {s.body}
+                  </p>
+
+                  <div className="hidden lg:block lg:pt-2 lg:text-right">
+                    <p className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-text/30">
+                      writes
+                    </p>
+                    <p className="mt-1.5 font-mono text-[12px] text-text/55 transition-colors duration-300 group-hover:text-accent-bright">
+                      {s.output}
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
           </ol>
         </section>
 
