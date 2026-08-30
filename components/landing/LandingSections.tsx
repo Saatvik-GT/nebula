@@ -46,10 +46,10 @@ export function LandingSections() {
 
         <div className="grid grid-cols-1 gap-px overflow-hidden border-y border-white/12 bg-white/12 lg:h-[82vh] lg:min-h-[640px] lg:grid-cols-12 lg:grid-rows-[1.6fr_1.15fr_0.55fr]">
           {/* T1 — four real states */}
-          <article className={`${TILE} bg-[#18220f] lg:col-span-4`}>
+          <article className={`${TILE} bg-[#0d0d0d] lg:col-span-4`}>
             <div>
               <div className="flex items-start gap-4">
-                <p className={NUM} style={{ color: "#bfe08a" }}>
+                <p className={NUM}>
                   4
                 </p>
                 <p className={`${KICKER} mt-2 text-white/45`}>
@@ -78,9 +78,9 @@ export function LandingSections() {
           </article>
 
           {/* T2 — the state machine */}
-          <article className={`${TILE} bg-[#0f211b] lg:col-span-4`}>
+          <article className={`${TILE} bg-[#101010] lg:col-span-4`}>
             <div className="flex items-start gap-4">
-              <p className={NUM} style={{ color: "#63c9a6" }}>
+              <p className={NUM}>
                 11
               </p>
               <p className={`${KICKER} mt-2 text-white/45`}>
@@ -108,7 +108,7 @@ export function LandingSections() {
               className="absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(90% 80% at 60% 45%, rgba(82,174,207,0.28) 0%, rgba(0,0,0,0) 60%), radial-gradient(closest-side at 60% 45%, rgba(0,0,0,0) 40%, rgba(224,168,92,0.30) 46%, rgba(0,0,0,0) 62%)",
+                  "radial-gradient(90% 80% at 60% 45%, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0) 60%), radial-gradient(closest-side at 60% 45%, rgba(0,0,0,0) 40%, rgba(255,255,255,0.14) 46%, rgba(0,0,0,0) 62%)",
               }}
             />
             <div className="relative flex items-start justify-between">
@@ -125,7 +125,7 @@ export function LandingSections() {
             </div>
             <div className="relative">
               <p className="flex items-center gap-2 text-[13px] text-white/80">
-                <span className="text-accent-bright">✦</span> Evidence-linked · 5.0
+                <span className="text-white/40">✦</span> Evidence-linked · 5.0
               </p>
               <p className="mt-2 max-w-[26ch] text-[12px] leading-snug text-white/45">
                 Examine the work, not the explanation.
@@ -134,10 +134,10 @@ export function LandingSections() {
           </article>
 
           {/* T4 — single defense family */}
-          <article className={`${TILE} bg-[#1b1526] lg:col-span-5`}>
+          <article className={`${TILE} bg-[#111111] lg:col-span-5`}>
             <p className={`${KICKER} text-white/45`}>Defense family</p>
             <div className="flex items-end gap-5">
-              <p className={NUM} style={{ color: "#b79be6" }}>
+              <p className={NUM}>
                 1
               </p>
               <p className="mb-2 font-mono text-[13px] text-white/85">
@@ -156,7 +156,7 @@ export function LandingSections() {
           </article>
 
           {/* T5 — capability strip */}
-          <article className={`${TILE} bg-[#161616] lg:col-span-3`}>
+          <article className={`${TILE} bg-[#0d0d0d] lg:col-span-3`}>
             <p className={`${KICKER} text-white/45`}>What holds it up</p>
             <ul className="space-y-2.5">
               {CAPABILITIES.map((c) => (
@@ -172,12 +172,9 @@ export function LandingSections() {
           </article>
 
           {/* T6 — identity / call to action */}
-          <article className={`${TILE} bg-[#241611] lg:col-span-4`}>
+          <article className={`${TILE} bg-[#101010] lg:col-span-4`}>
             <p className={`${KICKER} text-white/45`}>Executable Project Defense</p>
-            <p
-              className="font-display text-[clamp(1.9rem,4vw,3rem)] font-semibold uppercase leading-none"
-              style={{ color: "#e2a862" }}
-            >
+            <p className="font-display text-[clamp(1.9rem,4vw,3rem)] font-semibold uppercase leading-none text-white">
               Defense
               <sup className="ml-0.5 text-[0.5em]">+</sup>
             </p>
@@ -208,7 +205,7 @@ export function LandingSections() {
                     className="group inline-flex items-center gap-1 text-[12.5px] text-white/65 transition-colors hover:text-white"
                   >
                     {d.label}
-                    <ArrowUpRight className="h-3.5 w-3.5 text-white/30 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent-bright" />
+                    <ArrowUpRight className="h-3.5 w-3.5 text-white/30 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
                   </Link>
                 </li>
               ))}
