@@ -23,6 +23,8 @@ export function ChallengeDecision({
         ? "rejected"
         : null,
   );
+  const [confirming, setConfirming] = useState<"approve" | "reject" | null>(null);
+  const [reason, setReason] = useState("");
 
   return (
     <Panel className="p-5">
@@ -54,22 +56,46 @@ export function ChallengeDecision({
         </div>
       ) : (
         <div className="mt-4 space-y-2">
-          <button
-            type="button"
-            onClick={() => setDecision("approved")}
-            className="inline-flex h-9 w-full items-center justify-center gap-2 rounded-[8px] border border-accent-bright/55 bg-accent text-[13px] font-medium text-text transition-colors hover:bg-accent-bright/85"
-          >
-            <Check className="h-4 w-4" strokeWidth={2} />
-            Approve challenge
-          </button>
-          <button
-            type="button"
-            onClick={() => setDecision("rejected")}
-            className="inline-flex h-9 w-full items-center justify-center gap-2 rounded-[8px] border border-border text-[13px] font-medium text-text transition-colors hover:border-danger/50 hover:bg-[color-mix(in_oklab,var(--danger)_12%,transparent)]"
-          >
-            <ShieldX className="h-4 w-4" strokeWidth={2} />
-            Reject
-          </button>
+          {confirming === "approve" ? (
+            <div className="rounded-[8px] border border-accent-bright/35 bg-surface-raised p-3">
+              <p className="text-[12px] leading-[1.5] text-muted">Create a session from this validated challenge?</p>
+              <div className="mt-3 flex gap-2">
+                <button type="button" onClick={() => setDecision("approved")} className="h-8 flex-1 rounded-[8px] bg-accent text-[12px] font-medium text-accent-contrast">Approve and create</button>
+                <button type="button" onClick={() => setConfirming(null)} className="h-8 px-3 text-[12px] text-muted hover:text-text">Cancel</button>
+              </div>
+            </div>
+          ) : confirming === "reject" ? (
+            <div className="space-y-2 rounded-[8px] border border-danger/25 bg-surface-raised p-3">
+              <label className="block text-[11.5px] text-muted">Reason for rejection
+                <textarea value={reason} onChange={(event) => setReason(event.target.value)} rows={3} className="mt-1.5 w-full resize-none rounded-[8px] border border-border bg-surface px-3 py-2 text-[12px] text-text outline-none focus:border-danger/50" />
+              </label>
+              <div className="flex gap-2">
+                <button type="button" disabled={!reason.trim()} onClick={() => setDecision("rejected")} className="h-8 flex-1 rounded-[8px] border border-danger/40 text-[12px] font-medium text-danger disabled:opacity-40">Record rejection</button>
+                <button type="button" onClick={() => setConfirming(null)} className="h-8 px-3 text-[12px] text-muted hover:text-text">Cancel</button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <button
+                type="button"
+                disabled={!allGreen}
+                title={allGreen ? undefined : "Every validation gate must pass before approval."}
+                onClick={() => setConfirming("approve")}
+                className="inline-flex h-9 w-full items-center justify-center gap-2 rounded-[8px] border border-accent bg-accent text-[13px] font-medium text-accent-contrast transition-colors hover:bg-accent-bright disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                <Check className="h-4 w-4" strokeWidth={2} />
+                Approve and create session
+              </button>
+              <button
+                type="button"
+                onClick={() => setConfirming("reject")}
+                className="inline-flex h-9 w-full items-center justify-center gap-2 rounded-[8px] border border-border text-[13px] font-medium text-text transition-colors hover:border-danger/50 hover:bg-[color-mix(in_oklab,var(--danger)_12%,transparent)]"
+              >
+                <ShieldX className="h-4 w-4" strokeWidth={2} />
+                Reject candidate
+              </button>
+            </>
+          )}
         </div>
       )}
     </Panel>

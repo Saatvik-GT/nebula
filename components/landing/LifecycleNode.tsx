@@ -6,7 +6,7 @@ import { cn } from "@/lib/cn";
  * state machine (Frontend Spec PART D) — no invented lifecycle names:
  *   Isolate  -> snapshot created
  *   Inject   -> challenge compiled / activated
- *   Evaluate -> verification run (visible / hidden checks)
+ *   Evaluate -> sequential and overlap verification runs
  *   Defend   -> DEFEND stage / final explanation
  */
 export function LifecycleNode({

@@ -1,6 +1,6 @@
 /**
  * Thin vertical signal lines beneath the CTA — a small ensemble of rising
- * traces with a faint green glow. Purely ambient; hidden for reduced motion
+ * traces with a faint blue glow. Purely ambient; hidden for reduced motion
  * via the global stylesheet's animation clamp.
  */
 const LINES = [

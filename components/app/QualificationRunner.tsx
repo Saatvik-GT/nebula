@@ -136,7 +136,7 @@ export function QualificationRunner({
           <button
             type="button"
             onClick={() => run(0)}
-            className="inline-flex h-9 items-center gap-2 rounded-[8px] border border-accent-bright/55 bg-accent px-4 text-[13px] font-medium text-text transition-colors hover:bg-accent-bright/85"
+            className="inline-flex h-9 items-center gap-2 rounded-[8px] border border-accent bg-accent px-4 text-[13px] font-medium text-accent-contrast transition-colors hover:bg-accent-bright"
           >
             <Play className="h-4 w-4" strokeWidth={2} />
             Run qualification pipeline

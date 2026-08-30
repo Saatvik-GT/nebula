@@ -6,21 +6,21 @@ import "./globals.css";
  * survives the production build and can be audited.
  */
 const DIRECTION_CONTRACT = `<!--
-DIRECTION CONTRACT — Executable Project Defense (dark instrument shell)
+DIRECTION CONTRACT — Executable Project Defense
 THESIS: A defense console, not a marketing site. The lifecycle IS the layout;
   refuses the SaaS hero-with-screenshot and the gradient card grid.
-OWN-WORLD: near-black #0a0b0a ground, one accent-green family (#2f4b3c /
-  #4a7a5e), borders before shadows, one ambient radial glow behind the landing
-  headline only. System sans for UI, system mono for IDs/tags/digests. 8px
-  control radius, 12px panel radius.
+OWN-WORLD: quiet light evaluator shell, focused dark defense workspace, one
+  mineral-blue identity family, and borders before shadows. Green is reserved
+  for passed/healthy state. System sans for UI,
+  system mono for IDs/tags/digests. 8px control radius, 12px panel radius.
 STORY: evaluator understands the project becomes the exam, sees the four real
   state-machine stages (Isolate/Inject/Evaluate/Defend), acts via "Create
   defense" and the dashboard's real flows.
-FIRST VIEWPORT: landing — centered mono eyebrow, oversized two-line H1 with
-  "examination." in muted green, three-line body, filled green CTA with glow,
-  mono capability strip; peripheral lifecycle nodes at the four corners joined
-  by faint traces; thin animated signal lines under the CTA.
-FORM: instrument panel / lifecycle diagram. Spec-pinned world (Nebula
+FIRST VIEWPORT: landing — direct left-aligned proposition, paired import and
+  workspace actions, and a compact evidence-flow preview using real session
+  states. The same cool-neutral surfaces and mineral-blue identity continue
+  directly into the evaluator shell.
+FORM: evaluator workspace / evidence ledger. Spec-pinned world (Nebula
   PROJECT_FRONTEND_SPEC.md + two reference comps). Seed: brief-pinned.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the
   finish review, the verdict, DESIGN.md, and every shipping raster carrying its

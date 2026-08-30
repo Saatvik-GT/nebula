@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import {
   ChevronRight,
@@ -40,9 +40,8 @@ const TERMINAL_LINES = [
 ];
 
 const VISIBLE_CHECKS = [
-  { name: "single order → one delivery", result: "pass" as const },
-  { name: "retry is idempotent", result: "fail" as const },
-  { name: "unrelated orders unaffected", result: "pass" as const },
+  { name: "Baseline", result: "pass" as const },
+  { name: "Sequential duplicate", result: "pass" as const },
 ];
 
 const ASSISTANT_LOG = [
@@ -56,12 +55,26 @@ const ASSISTANT_LOG = [
   },
 ];
 
-const STAGES: { key: string; label: string; done: boolean }[] = [
-  { key: "diagnose", label: "Diagnose the condition", done: true },
-  { key: "change", label: "Apply the change", done: true },
-  { key: "verify", label: "Pass visible + hidden checks", done: false },
-  { key: "defend", label: "Explain and submit", done: false },
+const STAGES = [
+  { key: "map", label: "Map the condition" },
+  { key: "work", label: "Change and verify" },
+  { key: "stress", label: "Adapt under overlap" },
+  { key: "defend", label: "Explain and submit" },
 ];
+
+const STAGE_INDEX: Partial<Record<SessionState, number>> = {
+  CREATED: 0,
+  BRIEFING: 0,
+  MAP: 0,
+  WORK_INITIAL: 1,
+  VERIFY_INITIAL: 1,
+  STRESS: 2,
+  WORK_REVISION: 2,
+  VERIFY_REVISION: 2,
+  DEFEND: 3,
+  SUBMITTED: 4,
+  REPORTED: 4,
+};
 
 export function SessionWorkspace({
   sessionId,
@@ -81,12 +94,35 @@ export function SessionWorkspace({
     "terminal",
   );
   const [ask, setAsk] = useState("");
+  const [connected, setConnected] = useState(true);
   const active = files.find((f) => f.path === activePath) ?? files[0];
+  const currentStage = STAGE_INDEX[state] ?? 0;
+  const editingAllowed = state === "WORK_INITIAL" || state === "WORK_REVISION";
 
   const tree = useMemo(() => buildTree(files.map((f) => f.path)), [files]);
 
+  useEffect(() => {
+    const sync = () => setConnected(navigator.onLine);
+    sync();
+    window.addEventListener("online", sync);
+    window.addEventListener("offline", sync);
+    return () => {
+      window.removeEventListener("online", sync);
+      window.removeEventListener("offline", sync);
+    };
+  }, []);
+
   return (
-    <div className="-m-4 flex h-[calc(100vh-132px)] flex-col sm:-m-6 sm:h-[calc(100vh-148px)]">
+    <>
+      <div className="flex min-h-screen items-center justify-center bg-page p-6 text-center lg:hidden">
+        <div className="max-w-[420px]">
+          <h1 className="text-[18px] font-semibold text-text">A wider screen is required</h1>
+          <p className="mt-2 text-[13px] leading-[1.6] text-muted">
+            The defense workspace keeps the project tree, editor, and defense rail visible together. Reopen this session at 1024px or wider.
+          </p>
+        </div>
+      </div>
+      <div className="defense-workspace hidden h-screen flex-col lg:flex">
       {/* workspace header */}
       <div className="flex items-center justify-between gap-3 border-b border-border px-4 py-2.5">
         <div className="flex min-w-0 items-center gap-2 text-[12.5px]">
@@ -101,6 +137,11 @@ export function SessionWorkspace({
           <SessionStateBadge state={state} />
         </div>
       </div>
+      {!connected && (
+        <div role="status" className="border-b border-warning/40 bg-[color-mix(in_oklab,var(--warning)_12%,var(--surface))] px-4 py-2 text-[11.5px] text-text">
+          Connection interrupted. Your server-recorded work is preserved.
+        </div>
+      )}
 
       <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[220px_1fr_260px]">
         {/* file tree */}
@@ -147,18 +188,18 @@ export function SessionWorkspace({
                   inherit: true,
                   rules: [],
                   colors: {
-                    "editor.background": "#0a0b0a",
-                    "editor.foreground": "#f5f7f5",
-                    "editorLineNumber.foreground": "#4a504a",
-                    "editorGutter.background": "#0a0b0a",
-                    "editor.selectionBackground": "#2f4b3c66",
-                    "editor.lineHighlightBackground": "#11131199",
-                    "editorCursor.foreground": "#4a7a5e",
+                    "editor.background": "#0d1316",
+                    "editor.foreground": "#e6ecef",
+                    "editorLineNumber.foreground": "#526169",
+                    "editorGutter.background": "#0d1316",
+                    "editor.selectionBackground": "#285f7866",
+                    "editor.lineHighlightBackground": "#16212699",
+                    "editorCursor.foreground": "#4b8da8",
                   },
                 });
               }}
               options={{
-                readOnly: false,
+                readOnly: !editingAllowed,
                 minimap: { enabled: false },
                 fontSize: 12.5,
                 fontFamily: "var(--font-mono)",
@@ -219,7 +260,7 @@ export function SessionWorkspace({
                 <div>
                   <button className="mb-3 inline-flex h-8 items-center gap-1.5 rounded-[8px] border border-border px-3 text-[12px] font-medium text-text hover:bg-surface-raised">
                     <Play className="h-3.5 w-3.5" strokeWidth={2} />
-                    Run visible checks
+                    Run defense checks
                   </button>
                   <ul className="space-y-1.5">
                     {VISIBLE_CHECKS.map((c) => (
@@ -282,42 +323,85 @@ export function SessionWorkspace({
 
         {/* defense rail */}
         <aside className="hidden min-h-0 flex-col overflow-y-auto border-l border-border bg-surface p-4 lg:flex">
-          <h2 className="text-[12px] font-semibold text-text">Defense</h2>
+          <div className="flex items-center justify-between gap-3">
+            <h2 className="text-[12px] font-semibold text-text">Defense</h2>
+            <span className="font-mono text-[10px] text-muted">{currentStage + 1} / 4</span>
+          </div>
           <ol className="mt-3 space-y-2.5">
-            {STAGES.map((s) => (
+            {STAGES.map((s, index) => {
+              const done = index < currentStage;
+              const activeStage = index === currentStage;
+              return (
               <li key={s.key} className="flex items-start gap-2.5 text-[12px]">
                 <span
                   className={cn(
                     "mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full border text-[9px]",
-                    s.done
+                    done
                       ? "border-success/50 bg-[color-mix(in_oklab,var(--success)_20%,transparent)] text-success"
-                      : "border-border text-muted",
+                      : activeStage
+                        ? "border-accent-bright text-accent-bright"
+                        : "border-border text-muted",
                   )}
                 >
-                  {s.done ? "✓" : ""}
+                  {done ? "✓" : activeStage ? "•" : ""}
                 </span>
-                <span className={s.done ? "text-text" : "text-muted"}>
+                <span className={done || activeStage ? "text-text" : "text-muted"}>
                   {s.label}
                 </span>
               </li>
-            ))}
+              );
+            })}
           </ol>
 
-          <div className="mt-5 space-y-2">
-            <button className="inline-flex h-9 w-full items-center justify-center gap-2 rounded-[8px] border border-accent-bright/55 bg-accent text-[12.5px] font-medium text-text hover:bg-accent-bright/85">
-              Run verification
-            </button>
-            <button className="inline-flex h-9 w-full items-center justify-center gap-2 rounded-[8px] border border-border text-[12.5px] font-medium text-text hover:bg-surface-raised">
-              Submit for report
-            </button>
-          </div>
-
-          <p className="mt-4 text-[11px] leading-[1.5] text-muted">
-            Verification runs the visible suite, then the hidden stress suite. A
-            hidden failure opens WORK_REVISION.
-          </p>
+          <StageAction state={state} />
         </aside>
       </div>
+      </div>
+    </>
+  );
+}
+
+function StageAction({ state }: { state: SessionState }) {
+  if (state === "MAP") {
+    return (
+      <form className="mt-5 space-y-3" onSubmit={(event) => event.preventDefault()}>
+        <label className="block text-[11px] text-muted">
+          Where would you investigate?
+          <input required className="mt-1.5 h-9 w-full rounded-[8px] border border-border bg-page px-3 text-[12px] text-text outline-none focus:border-accent-bright" />
+        </label>
+        <label className="block text-[11px] text-muted">
+          What do you think is happening?
+          <textarea required rows={4} className="mt-1.5 w-full resize-none rounded-[8px] border border-border bg-page px-3 py-2 text-[12px] text-text outline-none focus:border-accent-bright" />
+        </label>
+        <button className="inline-flex h-9 w-full items-center justify-center rounded-[8px] border border-accent bg-accent text-[12.5px] font-medium text-accent-contrast hover:bg-accent-bright">
+          Submit hypothesis and begin
+        </button>
+      </form>
+    );
+  }
+
+  if (state === "VERIFY_INITIAL" || state === "VERIFY_REVISION") {
+    return <p className="mt-5 rounded-[8px] border border-border bg-page p-3 text-[11.5px] leading-[1.55] text-muted">Checks are running. Editing and repeated requests are temporarily disabled.</p>;
+  }
+
+  if (state === "STRESS") {
+    return <p className="mt-5 rounded-[8px] border border-warning/35 bg-page p-3 text-[11.5px] leading-[1.55] text-muted">The sequential duplicate case passes; processing remains unsafe when duplicate deliveries overlap.</p>;
+  }
+
+  if (state === "DEFEND") {
+    return (
+      <form className="mt-5 space-y-3" onSubmit={(event) => event.preventDefault()}>
+        <p className="text-[11.5px] leading-[1.55] text-muted">Explain why the change prevents duplicate delivery when confirmations overlap, and name the boundary that now owns idempotency.</p>
+        <textarea aria-label="Final defense answer" rows={7} className="w-full resize-none rounded-[8px] border border-border bg-page px-3 py-2 text-[12px] text-text outline-none focus:border-accent-bright" />
+        <button className="inline-flex h-9 w-full items-center justify-center rounded-[8px] border border-accent bg-accent text-[12.5px] font-medium text-accent-contrast hover:bg-accent-bright">Submit final defense</button>
+      </form>
+    );
+  }
+
+  return (
+    <div className="mt-5 space-y-2">
+      <button className="inline-flex h-9 w-full items-center justify-center rounded-[8px] border border-accent bg-accent text-[12.5px] font-medium text-accent-contrast hover:bg-accent-bright">Run defense checks</button>
+      <p className="text-[11px] leading-[1.5] text-muted">2 verification requests remain. Saved edits and check receipts are recorded for evaluator review.</p>
     </div>
   );
 }

@@ -1,8 +1,9 @@
 # Design System — Executable Project Defense
 
-Derived from the shipped build (not intentions). Dark instrument shell, one
-accent-green family, borders before shadows. Matches the two reference comps
-(`Nebula/landingpage.png`, `Nebula/dashboard.png`).
+Quiet evaluator workspace with a focused dark defense environment. One
+mineral-blue identity family, semantic status colors, borders before shadows. The system
+is grounded in the authoritative Final V1 frontend specification and optimized
+for the canonical evaluator-to-student proof path.
 
 ## Tokens
 
@@ -11,25 +12,27 @@ Defined on `:root` in `app/globals.css`, mirrored into Tailwind v4 `@theme` as
 
 | Token | Value | Role |
 |---|---|---|
-| `--page` | `#0a0b0a` | app background (behind the rounded shell) |
-| `--surface` | `#111311` | panels, sidebar, cards |
-| `--surface-raised` | `#161916` | inset blocks, hover, active nav, code strips |
-| `--text` | `#f5f7f5` | primary text |
-| `--muted` | `#8a908a` | secondary text, labels, axis ticks |
-| `--border` | `#262a26` | every divider, panel edge, control outline |
-| `--accent` | `#2f4b3c` | filled primary buttons, active-nav fill, avatars |
-| `--accent-bright` | `#4a7a5e` | focus ring, active-nav bar/icon, links, "in surface" |
-| `--success` | `#4a7a5e` | passed / healthy |
-| `--warning` | `#c98a3a` | in-progress only |
-| `--danger` | `#c94a3a` | failed / terminal states only |
+| `--page` | `#f3f5f6` | evaluator canvas |
+| `--surface` | `#fbfcfd` | primary content and panels |
+| `--surface-raised` | `#e9eef1` | selected, hover, and inset regions |
+| `--text` | `#172126` | primary text |
+| `--muted` | `#626e74` | secondary text, labels, axis ticks |
+| `--border` | `#d5dde1` | dividers, panel edges, control outlines |
+| `--accent` | `#285f78` | filled primary buttons, active-nav fill, avatars |
+| `--accent-bright` | `#347b99` | focus ring, active navigation, links |
+| `--accent-contrast` | `#ffffff` | content on filled accent controls |
+| `--success` | `#347052` | passed / healthy |
+| `--warning` | `#a86719` | in-progress only |
+| `--danger` | `#b5423b` | failed / terminal states only |
 
 Radii: `--radius-control: 8px` (buttons, inputs, pills-square), `--radius-panel:
 12px` (panels, tiles). The outer app shell uses `16px`; the landing frame `20px`.
 Spacing unit is `8px` (Tailwind default scale, used as-is).
 
-Amber and red are **only** for in-progress and failed/terminal. The green
-family carries all brand, action, active, and healthy meaning. No decorative
-colour anywhere.
+The `.defense-workspace` scope switches these neutral tokens to the prescribed
+dark workspace palette (`#10171b`, `#161f24`, `#2c3940`, `#e6ecef`) without
+changing component semantics. Amber and red are **only** for in-progress and
+failed/terminal. No decorative colour.
 
 ## Type
 
@@ -39,9 +42,9 @@ colour anywhere.
   "JetBrains Mono", "Segoe UI Mono", Menlo, Consolas`. IDs, digests, family
   names, file paths, state enums, eyebrow tags, code, terminal, `⌘K`. Ligatures
   disabled on `code/kbd/pre/samp/.font-mono`.
-- Body letter-spacing `-0.011em`. Display (landing H1) `clamp(2.9rem, 8.2vw,
-  6rem)`, weight 600, tracking `-0.04em`, leading `0.99`, two hard-broken lines
-  with "the examination." in `color-mix(accent-bright 56%, muted)`.
+- Body letter-spacing `-0.011em`. Display (landing H1) `clamp(3rem, 6vw,
+  5.25rem)`, weight 600, tracking `-0.04em`, leading `0.98`, balanced within a
+  12-character measure.
 - Section headings `clamp(1.5rem, 3vw, 2.1rem)` / 600 / `-0.02em`.
 - Page titles (`PageHeader`) 24px / 600. Panel titles 13.5px / 600. Body 13px.
   Metadata / captions 11–12px muted. Data uses `.tnum` (tabular figures).
@@ -52,19 +55,18 @@ colour anywhere.
 
 Borders do the work. `Panel` = `rounded-[12px] border border-border
 bg-surface`. Nested emphasis is `bg-surface-raised` + border, never a second
-shadow layer. The only shadows in the system: primary-button inset highlight +
-soft green drop, dropdown menus, and the landing CTA's green glow. The single
-ambient radial glow lives behind the landing hero only (`AmbientGlow`).
+shadow layer. The landing page uses the same flat cool-neutral canvas and
+border vocabulary as the evaluator shell; it has no separate atmospheric theme.
 
-Shell: pure-black gutter (`p-2 sm:p-3`) around a `rounded-[16px]` bordered frame
-holding a `260px` sidebar (`hidden lg:block`, drawer below `lg`), a `h-16`
-topbar, and a scrolling `<main>` capped at `max-w-[1440px]`. The session
-workspace bleeds full-width with negative margins.
+Shell: full-height evaluator canvas with a `232px` tonal sidebar (`hidden
+lg:block`, drawer below `lg`), a `h-14` utility bar, and a scrolling `<main>`
+capped at `max-w-[1360px]`. There is no decorative outer frame. The session
+workspace bleeds full-width with negative margins and owns its dark token scope.
 
 ## Components
 
 - **Button** (`components/ui/Button.tsx`): `primary` (accent fill, accent-bright
-  border, green glow), `outline` (border only, raised on hover), `ghost`. Sizes
+  border, blue glow), `outline` (border only, raised on hover), `ghost`. Sizes
   sm/md/lg, radius 8px, focus ring `--accent-bright`.
 - **Panel / PanelHeader** (`components/ui/Panel.tsx`): title + optional "View
   All" link (accent-bright, 12px).
@@ -80,9 +82,9 @@ workspace bleeds full-width with negative margins.
 - **PageHeader**: breadcrumbs (chevron-joined) + title + description + actions.
 - **Tabs**: segmented control in a `rounded-[10px]` bordered track, active tab
   `bg-surface-raised` with inset highlight.
-- **StatTile**: label + link-out arrow, 34px tabular value, delta row (green
-  up-arrow / red down-arrow + signed value + period). Lead tile is `highlighted`
-  (accent-bright border, tinted ground, decorative area sparkline).
+- **Stat summary**: four linked values in one horizontal region with simple
+  dividers. All metrics have equal weight; there is no decorative sparkline or
+  arbitrary highlighted metric.
 - **ValidationOverviewChart**: Recharts stacked bars via a custom shape —
   rounded-top clip, segments stacked passed→in_progress→failed→not_run,
   `not_run` filled with a 45° hatch `<pattern>`, floating value pill above the
@@ -97,11 +99,10 @@ workspace bleeds full-width with negative margins.
 
 ## Motion
 
-120–200ms, `cubic-bezier(0.22, 1, 0.36, 1)`. Named moments only: landing
-hero `epd-reveal` fade-up stagger, `AmbientGlow` 16s drift, `SignalLines`
-rising traces, one dashed accent trace on the hero connectors, `StatusDot`
-pulse. `prefers-reduced-motion` clamps all animation/transition to ~0ms
-globally.
+120–200ms, `cubic-bezier(0.22, 1, 0.36, 1)`. Motion communicates state; the
+landing and evaluator surfaces use simple color transitions. `StatusDot` may
+pulse for live activity. `prefers-reduced-motion` clamps all animation and
+transition to ~0ms globally.
 
 ## Browser surfaces
 

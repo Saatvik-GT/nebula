@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { FileLock2, Timer, Eye, EyeOff } from "lucide-react";
+import { FileLock2, Timer, Eye, Activity } from "lucide-react";
 import { PageHeader } from "@/components/app/PageHeader";
 import { Panel } from "@/components/ui/Panel";
 import { SessionStateBadge } from "@/components/ui/badges";
@@ -22,9 +22,9 @@ const POLICY = [
     body: "A visible check suite runs on demand and after each verification. You see its results in full.",
   },
   {
-    icon: EyeOff,
-    title: "Hidden stress checks",
-    body: "A hidden suite runs at verification points. You see pass or fail per suite, not the individual cases.",
+    icon: Activity,
+    title: "Progressive verification",
+    body: "Verification may introduce an overlapping-delivery condition after the sequential case passes. You receive the outcome and can revise your work.",
   },
   {
     icon: Timer,

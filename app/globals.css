@@ -1,22 +1,20 @@
 @import "tailwindcss";
 
-/* ============================================================
-   Executable Project Defense — visual system (PART A tokens)
-   Dark shell everywhere. No light-mode variant in this build.
-   ============================================================ */
+/* Evaluator shell: quiet, light, and task-first. */
 
 :root {
-  --page: #0a0b0a;
-  --surface: #111311;
-  --surface-raised: #161916;
-  --text: #f5f7f5;
-  --muted: #8a908a;
-  --border: #262a26;
-  --accent: #2f4b3c;
-  --accent-bright: #4a7a5e;
-  --success: #4a7a5e;
-  --warning: #c98a3a;
-  --danger: #c94a3a;
+  --page: #f3f5f6;
+  --surface: #fbfcfd;
+  --surface-raised: #e9eef1;
+  --text: #172126;
+  --muted: #626e74;
+  --border: #d5dde1;
+  --accent: #285f78;
+  --accent-bright: #347b99;
+  --accent-contrast: #ffffff;
+  --success: #347052;
+  --warning: #a86719;
+  --danger: #b5423b;
 
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
@@ -37,6 +35,7 @@
   --color-border: var(--border);
   --color-accent: var(--accent);
   --color-accent-bright: var(--accent-bright);
+  --color-accent-contrast: var(--accent-contrast);
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-danger: var(--danger);
@@ -56,7 +55,7 @@
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
   background: var(--page);
 }
 
@@ -106,12 +105,25 @@ body {
 }
 
 a {
-  color: inherit;
   text-decoration: none;
 }
 
 input::placeholder {
-  color: color-mix(in oklab, var(--muted) 85%, transparent);
+  color: var(--muted);
+}
+
+.defense-workspace {
+  --page: #10171b;
+  --surface: #161f24;
+  --surface-raised: #1d292f;
+  --text: #e6ecef;
+  --muted: #9ba8ae;
+  --border: #2c3940;
+  --accent-bright: #4b8da8;
+  --accent-contrast: #ffffff;
+  color-scheme: dark;
+  background: var(--page);
+  color: var(--text);
 }
 
 /* tabular numerals for data / metrics */

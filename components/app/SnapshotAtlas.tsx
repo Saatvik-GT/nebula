@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import {
   Background,
   Controls,
@@ -88,7 +89,7 @@ export function SnapshotAtlas({
   }, [modules, selectedId]);
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[260px_1fr_300px]">
+    <div className="grid gap-4 lg:grid-cols-[280px_1fr_360px]">
       {/* module list */}
       <Panel className="flex max-h-[560px] flex-col overflow-hidden">
         <div className="border-b border-border px-4 py-3 text-[12px] font-semibold text-text">
@@ -136,7 +137,7 @@ export function SnapshotAtlas({
         <ReactFlow
           nodes={nodes}
           edges={edges}
-          colorMode="dark"
+          colorMode="light"
           fitView
           fitViewOptions={{ padding: 0.25, minZoom: 0.5, maxZoom: 1.1 }}
           minZoom={0.4}
@@ -181,6 +182,18 @@ export function SnapshotAtlas({
                   <Pill tone="neutral">Excluded</Pill>
                 )}
               </DetailRow>
+            </div>
+            <div className="mt-5 border-t border-border pt-4">
+              {selected.inDefenseSurface ? (
+                <Link href="/challenges/8f3a2" className="inline-flex h-9 w-full items-center justify-center rounded-[8px] border border-accent bg-accent text-[12.5px] font-medium text-accent-contrast hover:bg-accent-bright">
+                  Compile this defense
+                </Link>
+              ) : (
+                <button disabled title="Select a module inside the eligible defense surface." className="inline-flex h-9 w-full cursor-not-allowed items-center justify-center rounded-[8px] border border-border text-[12.5px] font-medium text-muted opacity-60">
+                  Select an eligible surface
+                </button>
+              )}
+              <p className="mt-2 text-[11px] leading-[1.5] text-muted">The selection is backed by source relationships from this immutable snapshot.</p>
             </div>
           </>
         )}

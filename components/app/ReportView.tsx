@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FileCheck2, Receipt, ShieldCheck, X } from "lucide-react";
+import { Receipt, ShieldCheck, X } from "lucide-react";
 import { Panel } from "@/components/ui/Panel";
 import { Pill } from "@/components/ui/badges";
 import type {
@@ -181,16 +181,6 @@ export function ReportView({
               <Row label="Snapshot digest" value={snapshotDigest} mono />
               <Row label="Session state" value={session.state} mono />
             </dl>
-          </Panel>
-
-          <Panel className="p-5">
-            <div className="flex items-center gap-2">
-              <FileCheck2 className="h-4 w-4 text-accent-bright" strokeWidth={2} />
-              <h2 className="text-[13px] font-semibold text-text">Export</h2>
-            </div>
-            <button className="mt-3 inline-flex h-9 w-full items-center justify-center rounded-[8px] border border-border text-[12.5px] font-medium text-text hover:bg-surface-raised">
-              Download signed report
-            </button>
           </Panel>
         </div>
       </div>

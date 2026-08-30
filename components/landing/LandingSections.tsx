@@ -3,7 +3,7 @@ import {
   ArrowUpRight,
   Camera,
   FlaskConical,
-  Shield,
+  MessageSquareText,
   Waypoints,
 } from "lucide-react";
 
@@ -33,11 +33,11 @@ const STAGES = [
     icon: Waypoints,
     name: "Evaluate",
     sub: "Evidence-first",
-    body: "Visible and hidden check suites run in an isolated sandbox. Each run writes a receipt; results drive the session forward or back into revision.",
+    body: "Sequential and overlapping-delivery checks run in an isolated sandbox. Each run writes a receipt; results drive the session forward or back into revision.",
     state: "VERIFY_INITIAL / STRESS",
   },
   {
-    icon: Shield,
+    icon: MessageSquareText,
     name: "Defend",
     sub: "In context",
     body: "In the DEFEND stage the student explains the diagnosis and the change in the project's own context. The report is assembled from linked evidence.",
@@ -66,7 +66,7 @@ const CAPABILITIES = [
   },
   {
     title: "Executable checks",
-    body: "Findings come from suites that actually run — visible checks the student sees, hidden stress checks they do not.",
+    body: "Findings come from executable sequential and overlap checks rather than a static rubric or inferred confidence score.",
   },
   {
     title: "Evidence-linked findings",
@@ -92,17 +92,13 @@ export function LandingSections() {
         {/* How it works */}
         <section id="how-it-works" className="scroll-mt-24 py-20 sm:py-28">
           <SectionHead title="The defense lifecycle is four real states of the session" />
-          <ol className="mt-14 grid gap-y-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-8">
+          <ol className="mt-12 grid gap-y-10 border-y border-border sm:grid-cols-2 lg:grid-cols-4">
             {STAGES.map((s, i) => (
-              <li key={s.name} className="relative">
+              <li key={s.name} className="relative py-6 sm:pr-8 lg:border-r lg:border-border lg:px-6 lg:first:pl-0 lg:last:border-r-0 lg:last:pr-0">
                 <div className="flex items-center gap-3">
                   <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-border bg-surface">
                     <s.icon className="h-4 w-4 text-accent-bright" strokeWidth={1.75} />
                   </span>
-                  <span
-                    aria-hidden
-                    className="hidden h-px flex-1 bg-gradient-to-r from-border to-transparent lg:block"
-                  />
                 </div>
                 <p className="mt-5 font-mono text-[11px] text-muted">
                   Stage {i + 1} — {s.state}
@@ -151,7 +147,7 @@ export function LandingSections() {
           <div className="mt-12 flex flex-wrap items-center gap-x-2 gap-y-3">
             {FLOW.map((state, i) => (
               <span key={state} className="flex items-center gap-2">
-                <span className="rounded-full border border-border bg-surface px-3 py-1.5 font-mono text-[11px] tracking-[0.03em] text-muted">
+                <span className="rounded-[6px] border border-border bg-surface px-3 py-1.5 font-mono text-[11px] tracking-[0.03em] text-muted">
                   {state}
                 </span>
                 {i < FLOW.length - 1 && (
