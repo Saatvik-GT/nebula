@@ -26,7 +26,7 @@ export function SidebarNav({
 
   return (
     <div className="flex h-full flex-col">
-      <div className="px-5 py-5">
+      <div className="px-5 py-[18px]">
         <AppBrand />
       </div>
 
@@ -49,7 +49,7 @@ export function SidebarNav({
                       className={cn(
                         "group relative flex items-center gap-3 rounded-[8px] px-3 py-2 text-[13px] font-medium transition-colors",
                         isActive
-                          ? "bg-[color-mix(in_oklab,var(--accent)_38%,transparent)] text-text"
+                          ? "bg-surface text-text"
                           : "text-muted hover:bg-surface-raised hover:text-text",
                       )}
                     >
@@ -63,7 +63,7 @@ export function SidebarNav({
                         className={cn(
                           "h-[17px] w-[17px] shrink-0",
                           isActive
-                            ? "text-accent-bright"
+                            ? "text-accent"
                             : "text-muted group-hover:text-text",
                         )}
                         strokeWidth={1.75}
@@ -88,15 +88,7 @@ export function SidebarNav({
             </p>
           </div>
         </div>
-        <p className="mt-3 font-mono text-[10.5px] text-muted">
-          Platform {platformVersion}
-        </p>
-        <Link
-          href="/all"
-          className="mt-2 inline-block font-mono text-[10.5px] text-accent-bright transition-colors hover:text-text"
-        >
-          All pages →
-        </Link>
+        <p className="mt-3 font-mono text-[10.5px] text-muted">{platformVersion}</p>
       </div>
     </div>
   );

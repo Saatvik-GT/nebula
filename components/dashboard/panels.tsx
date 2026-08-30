@@ -154,7 +154,7 @@ export function RecentSessionsPanel({
               >
                 <span
                   aria-hidden
-                  className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-accent text-[11px] font-semibold text-text"
+                  className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-accent text-[11px] font-semibold text-accent-contrast"
                 >
                   {initials(row.groupOrProjectLabel)}
                 </span>
@@ -297,7 +297,7 @@ export function SystemRemindersPanel({
           {reminder.joinHref && (
             <a
               href={reminder.joinHref}
-              className="mt-4 inline-flex h-9 w-full items-center justify-center gap-2 rounded-[8px] border border-accent-bright/55 bg-accent text-[13px] font-medium text-text transition-colors hover:bg-accent-bright/85"
+              className="mt-4 inline-flex h-9 w-full items-center justify-center gap-2 rounded-[8px] border border-accent bg-accent text-[13px] font-medium text-accent-contrast transition-colors hover:bg-accent-bright"
             >
               <Video className="h-4 w-4" strokeWidth={1.75} />
               Join Meeting

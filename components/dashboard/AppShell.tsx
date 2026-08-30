@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import { X } from "lucide-react";
 import { SidebarNav } from "@/components/dashboard/SidebarNav";
 import { Topbar } from "@/components/dashboard/Topbar";
@@ -13,12 +14,18 @@ const PLATFORM_VERSION = "v0.2.0 · Phase 2 Prototype";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const [navOpen, setNavOpen] = useState(false);
+  const pathname = usePathname();
+  const isDefenseWorkspace = /^\/sessions\/[^/]+$/.test(pathname);
+
+  if (isDefenseWorkspace) {
+    return <main className="min-h-screen bg-page">{children}</main>;
+  }
 
   return (
-    <div className="min-h-screen bg-black p-2 sm:p-3">
-      <div className="flex min-h-[calc(100vh-16px)] overflow-hidden rounded-[16px] border border-border bg-page sm:min-h-[calc(100vh-24px)]">
+    <div className="min-h-screen bg-page">
+      <div className="flex min-h-screen overflow-hidden bg-page">
         {/* desktop sidebar */}
-        <aside className="hidden w-[260px] shrink-0 border-r border-border bg-surface lg:block">
+        <aside className="hidden w-[232px] shrink-0 border-r border-border bg-surface-raised/55 lg:block">
           <SidebarNav
             systemStatus={SYSTEM_STATUS}
             systemStatusLabel={SYSTEM_STATUS_LABEL}
@@ -56,7 +63,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <div className="flex min-w-0 flex-1 flex-col">
           <Topbar onOpenNav={() => setNavOpen(true)} />
           <main className="flex-1 overflow-y-auto">
-            <div className={cn("mx-auto max-w-[1440px] px-4 py-6 sm:px-6 sm:py-8")}>
+            <div className={cn("mx-auto max-w-[1360px] px-4 py-6 sm:px-8 sm:py-8")}>
               {children}
             </div>
           </main>

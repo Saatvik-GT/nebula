@@ -12,13 +12,13 @@ type Tone = "neutral" | "success" | "warning" | "danger" | "active";
 const toneClass: Record<Tone, string> = {
   neutral: "border-border bg-surface-raised text-muted",
   active:
-    "border-accent-bright/40 bg-[color-mix(in_oklab,var(--accent)_45%,transparent)] text-[color-mix(in_oklab,var(--accent-bright)_75%,white)]",
+    "border-accent-bright/35 bg-[color-mix(in_oklab,var(--accent)_10%,transparent)] text-accent",
   success:
-    "border-success/40 bg-[color-mix(in_oklab,var(--success)_20%,transparent)] text-[color-mix(in_oklab,var(--success)_72%,white)]",
+    "border-success/30 bg-[color-mix(in_oklab,var(--success)_9%,transparent)] text-success",
   warning:
-    "border-warning/40 bg-[color-mix(in_oklab,var(--warning)_18%,transparent)] text-[color-mix(in_oklab,var(--warning)_78%,white)]",
+    "border-warning/30 bg-[color-mix(in_oklab,var(--warning)_9%,transparent)] text-warning",
   danger:
-    "border-danger/45 bg-[color-mix(in_oklab,var(--danger)_18%,transparent)] text-[color-mix(in_oklab,var(--danger)_80%,white)]",
+    "border-danger/30 bg-[color-mix(in_oklab,var(--danger)_9%,transparent)] text-danger",
 };
 
 export function Pill({

@@ -22,7 +22,7 @@ const COLOR: Record<ValidationOutcome, string> = {
   passed: "var(--success)",
   in_progress: "var(--warning)",
   failed: "var(--danger)",
-  not_run: "url(#epd-hatch)",
+  not_run: "var(--surface-raised)",
 };
 
 const LEGEND: { key: ValidationOutcome; label: string }[] = [
@@ -125,7 +125,6 @@ export function ValidationOverviewChart({
       </div>
 
       <div className={cn("px-3 pt-3", loading && "opacity-40")}>
-        <HatchDef />
         <div className="h-[210px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={rows} margin={{ top: 26, right: 8, bottom: 4, left: 8 }} barCategoryGap="16%">
@@ -153,46 +152,16 @@ export function ValidationOverviewChart({
       <div className="flex flex-wrap items-center gap-x-6 gap-y-2 px-5 pb-5 pt-3">
         {LEGEND.map((l) => (
           <span key={l.key} className="flex items-center gap-2 text-[12px] text-muted">
-            {l.key === "not_run" ? (
-              <span
-                aria-hidden
-                className="h-2.5 w-2.5 rounded-[3px] border border-border"
-                style={{
-                  backgroundImage:
-                    "repeating-linear-gradient(45deg, var(--border) 0 2px, transparent 2px 4px)",
-                }}
-              />
-            ) : (
-              <span
-                aria-hidden
-                className="h-2.5 w-2.5 rounded-full"
-                style={{ background: COLOR[l.key] }}
-              />
-            )}
+            <span
+              aria-hidden
+              className={cn("h-2.5 w-2.5 rounded-full", l.key === "not_run" && "border border-border")}
+              style={{ background: COLOR[l.key] }}
+            />
             {l.label}
           </span>
         ))}
       </div>
     </Panel>
-  );
-}
-
-function HatchDef() {
-  return (
-    <svg width="0" height="0" className="absolute" aria-hidden>
-      <defs>
-        <pattern
-          id="epd-hatch"
-          patternUnits="userSpaceOnUse"
-          width="6"
-          height="6"
-          patternTransform="rotate(45)"
-        >
-          <rect width="6" height="6" fill="color-mix(in oklab, var(--muted) 22%, transparent)" />
-          <line x1="0" y1="0" x2="0" y2="6" stroke="var(--muted)" strokeWidth="2" strokeOpacity="0.5" />
-        </pattern>
-      </defs>
-    </svg>
   );
 }
 

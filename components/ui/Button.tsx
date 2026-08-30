@@ -13,8 +13,8 @@ const base =
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-accent text-text border border-accent-bright/55 hover:bg-accent-bright/85 " +
-    "hover:border-accent-bright shadow-[0_1px_0_rgba(255,255,255,0.04)_inset,0_10px_30px_-14px_rgba(74,122,94,0.55)]",
+    "bg-accent text-accent-contrast border border-accent hover:bg-accent-bright " +
+    "hover:border-accent-bright",
   outline:
     "bg-transparent text-text border border-border hover:bg-surface-raised hover:border-[color-mix(in_oklab,var(--border)_60%,var(--muted))]",
   ghost: "bg-transparent text-muted border border-transparent hover:text-text hover:bg-surface-raised",
