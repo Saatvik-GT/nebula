@@ -18,11 +18,13 @@ export interface ValidationOverviewChartProps {
 
 const ORDER: ValidationOutcome[] = ["passed", "in_progress", "failed", "not_run"];
 
+// Monochrome ramp matching the DialClock: white at stepped opacity, with
+// --accent-bright as the single hue (the clock's second hand).
 const COLOR: Record<ValidationOutcome, string> = {
-  passed: "var(--success)",
-  in_progress: "var(--warning)",
-  failed: "var(--danger)",
-  not_run: "var(--surface-raised)",
+  passed: "var(--accent-bright)",
+  in_progress: "rgba(255,255,255,0.72)",
+  failed: "rgba(255,255,255,0.40)",
+  not_run: "rgba(255,255,255,0.12)",
 };
 
 const LEGEND: { key: ValidationOutcome; label: string }[] = [
@@ -125,7 +127,7 @@ export function ValidationOverviewChart({
       </div>
 
       <div className={cn("px-3 pt-3", loading && "opacity-40")}>
-        <div className="h-[210px] w-full">
+        <div className="h-[136px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={rows} margin={{ top: 26, right: 8, bottom: 4, left: 8 }} barCategoryGap="16%">
               <XAxis

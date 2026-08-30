@@ -23,7 +23,7 @@ export function Topbar({
       </button>
 
       <p className="min-w-0 flex-1 truncate text-[12.5px] text-muted">
-        Evaluator workspace
+        Dashboard
       </p>
 
       <div className="ml-auto flex items-center gap-2.5" aria-label={`${accountName}, ${accountRole}`}>

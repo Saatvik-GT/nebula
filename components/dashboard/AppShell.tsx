@@ -16,6 +16,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const [navOpen, setNavOpen] = useState(false);
   const pathname = usePathname();
   const isDefenseWorkspace = /^\/sessions\/[^/]+$/.test(pathname);
+  const isFullBleed = pathname === "/dashboard";
 
   if (isDefenseWorkspace) {
     return <main className="min-h-screen bg-page">{children}</main>;
@@ -63,9 +64,13 @@ export function AppShell({ children }: { children: ReactNode }) {
         <div className="flex min-w-0 flex-1 flex-col">
           <Topbar onOpenNav={() => setNavOpen(true)} />
           <main className="flex-1 overflow-y-auto">
-            <div className={cn("mx-auto max-w-[1360px] px-4 py-6 sm:px-8 sm:py-8")}>
-              {children}
-            </div>
+            {isFullBleed ? (
+              children
+            ) : (
+              <div className={cn("mx-auto max-w-[1360px] px-4 py-6 sm:px-8 sm:py-8")}>
+                {children}
+              </div>
+            )}
           </main>
         </div>
       </div>

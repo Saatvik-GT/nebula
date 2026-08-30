@@ -130,6 +130,17 @@ input::placeholder {
   color: var(--text);
 }
 
+/* Dashboard mosaic: embedded panels shed their own frame and blend into the
+   flush bento grid, keeping only their internal hairline dividers. */
+.dashboard-flush > * {
+  border-width: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  height: 100%;
+  min-height: 0;
+  overflow: auto;
+}
+
 /* tabular numerals for data / metrics */
 .tnum {
   font-variant-numeric: tabular-nums;
