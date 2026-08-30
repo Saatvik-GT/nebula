@@ -1,6 +1,6 @@
 /**
  * The single soft ambient radial glow permitted in this build — landing hero
- * only, nowhere else. One warm-green light field plus a faint diagonal beam.
+ * only, nowhere else. One mineral-blue light field plus a faint diagonal beam.
  */
 export function AmbientGlow() {
   return (
