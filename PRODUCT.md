@@ -73,21 +73,28 @@ applied to a static submission.
 ## Brand Commitments
 
 - Name: **Executable Project Defense** (app shell wordmark: "Defense").
-- Dark shell everywhere — no light-mode variant in this build.
-- Single accent-green family for primary actions, active nav, healthy/passed
-  status, and progress. Amber and red are reserved strictly for
-  in-progress and failed — never decorative.
-- Borders before shadows. Exactly one soft ambient radial glow is permitted,
-  behind the landing hero only.
+- The evaluator works in a quiet light shell; the student defense workspace is
+  a separate dark, focused environment. This follows the authoritative
+  `FRONTEND_SPEC.md` instead of carrying the reference dashboard's dark mood
+  across every task.
+- A mineral-blue family carries product identity, primary actions, focus, and
+  current selection. Green is reserved for healthy/passed outcomes; amber and
+  red are reserved strictly for in-progress and failed — never decorative.
+- Borders and tonal separation before shadows. Dashboard metrics are a compact
+  summary row, not a grid of promotional cards. Decorative charts and trends
+  are not used to make fixture data appear more meaningful than it is.
 - System sans for UI text; system monospace for tags, IDs, digests, and
   technical strings.
-- Reference comps: `Nebula/landingpage.png` (landing), `Nebula/dashboard.png`
-  (dashboard). The build matches their structure and mood.
+- Reference comps remain useful for information structure, but the Final V1
+  product specification in the sibling `bytebuilt` repository is authoritative
+  when their visual direction conflicts.
 
 ## Evidence on Hand
 
-- `Nebula/PROJECT_FRONTEND_SPEC.md` — the final, self-contained build brief
-  (tokens, pages, component contracts in Part C, backing resources in Part D).
+- `../bytebuilt/EXECUTABLE_PROJECT_DEFENSE_FINAL_V1/FRONTEND_SPEC.md` — the
+  authoritative presentation and client-behavior specification.
+- `../bytebuilt/EXECUTABLE_PROJECT_DEFENSE_FINAL_V1/DEMO_SPEC.md` — the
+  canonical evaluator-to-student proof path and recording priority.
 - Two reference images (landing, dashboard).
 - No real backend, users, metrics, or customer data. All dashboard figures,
   session ids, challenge ids, and evidence events in this build are
@@ -98,8 +105,8 @@ applied to a static submission.
 
 1. Nothing on screen is fabricated: every tile, row, and badge maps to a real
    Part D table/state, or it is not shown.
-2. Outcome state always pairs colour with text or icon; the accent-green family
-   carries identity, amber/red carry only in-progress/failed.
+2. Outcome state always pairs colour with text or icon; mineral blue carries
+   identity, while green/amber/red carry passed/in-progress/failed.
 3. The lifecycle is the information architecture — landing nodes, dashboard
    panels, and session badges all speak the same state-machine vocabulary.
 4. Evidence-first: reports, activity feeds, and audit logs are views onto one
