@@ -70,7 +70,7 @@ export default function AllPagesIndex() {
         title="All Pages"
         description="Every surface in this build, including sample IDs for the dynamic routes. Nothing here is gated."
       />
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 px-4 py-6 sm:grid-cols-2 sm:px-8 lg:grid-cols-3">
         {GROUPS.map((g) => (
           <Panel key={g.heading} className="overflow-hidden">
             <p className="border-b border-border px-4 py-3 font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted">

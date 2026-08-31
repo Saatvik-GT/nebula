@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/app/PageHeader";
-import { Panel } from "@/components/ui/Panel";
 import { DataList, type Column } from "@/components/app/DataList";
 import { StatusDot, Pill, healthLabel, healthTone } from "@/components/ui/badges";
 import { jobs, workerPool, type Job } from "@/lib/api/mock/resources";
@@ -43,8 +42,10 @@ export default function WorkersPage() {
         description="Worker and infrastructure health telemetry, plus the live job queue for snapshots, validations, check runs, and reports."
       />
 
-      <Panel className="mb-4 p-5">
-        <h2 className="text-[13px] font-semibold text-text">Component health</h2>
+      <div className="border-b border-white/12 bg-[#0b0b0b] px-4 py-5 sm:px-8">
+        <h2 className="font-mono text-[10.5px] uppercase tracking-[0.22em] text-white/40">
+          Component health
+        </h2>
         <div className="mt-4 grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
           {workerPool.components.map((c) => (
             <div key={c.id} className="flex items-center gap-2.5">
@@ -58,7 +59,7 @@ export default function WorkersPage() {
             </div>
           ))}
         </div>
-      </Panel>
+      </div>
 
       <DataList columns={columns} rows={jobs} getKey={(j) => j.id} />
     </>

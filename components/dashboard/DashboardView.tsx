@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useTransition } from "react";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Plus } from "lucide-react";
 import type { DashboardDto, StatTileDto } from "@/lib/contracts/dashboard";
 import { api } from "@/lib/api/client";
 import { signed } from "@/lib/format";
@@ -50,8 +50,16 @@ export function DashboardView({ initial }: { initial: DashboardDto }) {
   return (
     <section
       aria-label="Workspace overview"
-      className="grid grid-cols-1 gap-px border-b border-white/12 bg-white/12 md:grid-cols-2 lg:h-[calc(100vh-3.5rem)] lg:grid-cols-12 lg:grid-rows-[minmax(0,0.55fr)_minmax(0,1.28fr)_minmax(0,1.17fr)] lg:overflow-hidden"
+      className="relative grid grid-cols-1 gap-px border-b border-white/12 bg-white/12 md:grid-cols-2 lg:h-[calc(100vh-3.5rem)] lg:grid-cols-12 lg:grid-rows-[minmax(0,0.55fr)_minmax(0,1.28fr)_minmax(0,1.17fr)] lg:overflow-hidden"
     >
+      <Link
+        href="/projects/new"
+        className="group absolute right-4 top-4 z-10 hidden items-center gap-2 rounded-[8px] border border-accent-bright/40 bg-accent-bright/10 px-3.5 py-2 text-[12.5px] font-medium text-accent-bright backdrop-blur-sm transition-colors hover:bg-accent-bright hover:text-accent-contrast lg:inline-flex"
+      >
+        <Plus className="h-4 w-4" strokeWidth={2} />
+        Import project
+      </Link>
+
       {data.stats.map((tile) => (
         <NumTile key={tile.id} tile={tile} loading={pending} />
       ))}

@@ -16,7 +16,12 @@ export function AppShell({ children }: { children: ReactNode }) {
   const [navOpen, setNavOpen] = useState(false);
   const pathname = usePathname();
   const isDefenseWorkspace = /^\/sessions\/[^/]+$/.test(pathname);
-  const isFullBleed = pathname === "/dashboard";
+  const isFullBleed =
+    pathname === "/dashboard" ||
+    pathname === "/projects/new" ||
+    /^\/(projects|atlas|challenges|sessions|reports|evidence|validation|workers|audit|all)$/.test(
+      pathname,
+    );
 
   if (isDefenseWorkspace) {
     return <main className="min-h-screen bg-page">{children}</main>;

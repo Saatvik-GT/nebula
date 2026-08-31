@@ -65,7 +65,7 @@ export default function ValidationPage() {
         getKey={(r) => r.id}
         rowHref={(r) => `/challenges/${r.challengeId}`}
       />
-      <p className="mt-4 text-[12px] text-muted">
+      <p className="px-4 py-4 text-[12px] text-muted sm:px-8">
         Full component health is on the{" "}
         <Link href="/workers" className="text-accent-bright hover:text-text">
           Workers

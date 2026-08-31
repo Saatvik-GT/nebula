@@ -1,21 +1,27 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Check, ShieldX } from "lucide-react";
 import { Panel } from "@/components/ui/Panel";
 import { Pill } from "@/components/ui/badges";
+import { sessions } from "@/lib/api/mock/resources";
 import { cn } from "@/lib/cn";
 
 export function ChallengeDecision({
   gatesPassed,
   gatesTotal,
   initialStatus,
+  challengeId,
 }: {
   gatesPassed: number;
   gatesTotal: number;
   initialStatus: string;
+  challengeId: string;
 }) {
+  const router = useRouter();
   const allGreen = gatesPassed === gatesTotal;
+  const [creating, setCreating] = useState(false);
   const [decision, setDecision] = useState<"approved" | "rejected" | null>(
     initialStatus === "approved"
       ? "approved"
@@ -25,6 +31,14 @@ export function ChallengeDecision({
   );
   const [confirming, setConfirming] = useState<"approve" | "reject" | null>(null);
   const [reason, setReason] = useState("");
+
+  function approveAndCreate() {
+    setDecision("approved");
+    setCreating(true);
+    const target =
+      sessions.find((s) => s.challengeId === challengeId) ?? sessions[0];
+    setTimeout(() => router.push(`/sessions/${target.id}/brief`), 500);
+  }
 
   return (
     <Panel className="p-5">
@@ -46,6 +60,16 @@ export function ChallengeDecision({
           <Pill tone={decision === "approved" ? "success" : "danger"}>
             {decision === "approved" ? "Approved" : "Rejected"}
           </Pill>
+          {decision === "approved" && (
+            <button
+              type="button"
+              disabled={creating}
+              onClick={approveAndCreate}
+              className="mt-3 inline-flex h-9 w-full items-center justify-center gap-2 rounded-[8px] border border-accent bg-accent text-[13px] font-medium text-accent-contrast transition-colors hover:bg-accent-bright disabled:opacity-50"
+            >
+              {creating ? "Opening session…" : "Open defense session →"}
+            </button>
+          )}
           <button
             type="button"
             onClick={() => setDecision(null)}
@@ -60,7 +84,7 @@ export function ChallengeDecision({
             <div className="rounded-[8px] border border-accent-bright/35 bg-surface-raised p-3">
               <p className="text-[12px] leading-[1.5] text-muted">Create a session from this validated challenge?</p>
               <div className="mt-3 flex gap-2">
-                <button type="button" onClick={() => setDecision("approved")} className="h-8 flex-1 rounded-[8px] bg-accent text-[12px] font-medium text-accent-contrast">Approve and create</button>
+                <button type="button" disabled={creating} onClick={approveAndCreate} className="h-8 flex-1 rounded-[8px] bg-accent text-[12px] font-medium text-accent-contrast disabled:opacity-50">{creating ? "Creating session…" : "Approve and create"}</button>
                 <button type="button" onClick={() => setConfirming(null)} className="h-8 px-3 text-[12px] text-muted hover:text-text">Cancel</button>
               </div>
             </div>

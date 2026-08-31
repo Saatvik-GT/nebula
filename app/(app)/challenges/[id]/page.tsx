@@ -106,6 +106,7 @@ export default async function ChallengePage({
             gatesPassed={gatesPassed}
             gatesTotal={challenge.gates.length}
             initialStatus={challenge.status}
+            challengeId={challenge.id}
           />
           <Panel className="p-5">
             <h2 className="text-[13px] font-semibold text-text">Linked</h2>

@@ -14,7 +14,7 @@ export function Panel({
   return (
     <As
       className={cn(
-        "rounded-[12px] border border-border bg-surface",
+        "rounded-[10px] border border-white/12 bg-[#0b0b0b]",
         className,
       )}
     >
