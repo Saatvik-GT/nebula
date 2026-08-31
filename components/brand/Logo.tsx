@@ -9,7 +9,13 @@ import { cn } from "@/lib/cn";
  * frame at rest, the full animation on hover / keyboard focus, reset to the
  * first frame when the pointer leaves.
  */
-export function BrandLockup({ className }: { className?: string }) {
+export function BrandLockup({
+  className,
+  href = "/",
+}: {
+  className?: string;
+  href?: string;
+}) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const play = () => {
@@ -27,7 +33,7 @@ export function BrandLockup({ className }: { className?: string }) {
 
   return (
     <Link
-      href="/"
+      href={href}
       className={cn("group inline-flex items-center", className)}
       aria-label="Executable Project Defense — home"
       onMouseEnter={play}

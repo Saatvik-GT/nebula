@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AppBrand } from "@/components/brand/Logo";
+import { BrandLockup } from "@/components/brand/Logo";
 import { StatusDot, healthLabel, healthTone } from "@/components/ui/badges";
 import type { HealthStatus } from "@/lib/contracts/dashboard";
 import { NAV_GROUPS } from "@/components/dashboard/nav-config";
@@ -27,7 +27,7 @@ export function SidebarNav({
   return (
     <div className="flex h-full flex-col">
       <div className="px-5 py-[18px]">
-        <AppBrand />
+        <BrandLockup href="/dashboard" />
       </div>
 
       <nav className="flex-1 overflow-y-auto px-3 pb-4">
