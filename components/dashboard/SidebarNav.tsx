@@ -61,15 +61,37 @@ export function SidebarNav({
                           isActive ? "opacity-100" : "opacity-0",
                         )}
                       />
-                      <item.icon
-                        className={cn(
-                          "h-[17px] w-[17px] shrink-0 transition-colors",
-                          isActive
-                            ? "text-accent-bright"
-                            : "text-white/40 group-hover:text-white/70",
-                        )}
-                        strokeWidth={1.75}
-                      />
+                      {item.iconSrc ? (
+                        <span
+                          aria-hidden
+                          className={cn(
+                            "h-[17px] w-[17px] shrink-0 bg-current transition-colors",
+                            isActive
+                              ? "text-accent-bright"
+                              : "text-white/40 group-hover:text-white/70",
+                          )}
+                          style={{
+                            maskImage: `url(${item.iconSrc})`,
+                            WebkitMaskImage: `url(${item.iconSrc})`,
+                            maskSize: "contain",
+                            WebkitMaskSize: "contain",
+                            maskRepeat: "no-repeat",
+                            WebkitMaskRepeat: "no-repeat",
+                            maskPosition: "center",
+                            WebkitMaskPosition: "center",
+                          }}
+                        />
+                      ) : (
+                        <item.icon
+                          className={cn(
+                            "h-[17px] w-[17px] shrink-0 transition-colors",
+                            isActive
+                              ? "text-accent-bright"
+                              : "text-white/40 group-hover:text-white/70",
+                          )}
+                          strokeWidth={1.75}
+                        />
+                      )}
                       <span className="truncate">{item.label}</span>
                     </Link>
                   </li>

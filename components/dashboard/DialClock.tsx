@@ -8,6 +8,24 @@ import { cn } from "@/lib/cn";
  * bounding circle. Reads the viewer's local time and ticks once a second.
  * Colour comes from `currentColor`, so the containing tile drives it.
  */
+
+// Tick geometry is precomputed and rounded so the server- and client-rendered
+// SVG strings are byte-identical (Math.sin/cos can differ in the last ulp
+// between the SSR runtime and the browser, which trips hydration).
+const round = (n: number) => Math.round(n * 1000) / 1000;
+const TICKS = Array.from({ length: 60 }, (_, i) => {
+  const major = i % 5 === 0;
+  const a = (i * 6 * Math.PI) / 180;
+  const inner = major ? 76 : 84;
+  return {
+    major,
+    x1: round(100 + inner * Math.sin(a)),
+    y1: round(100 - inner * Math.cos(a)),
+    x2: round(100 + 92 * Math.sin(a)),
+    y2: round(100 - 92 * Math.cos(a)),
+  };
+});
+
 export function DialClock({ className }: { className?: string }) {
   const [now, setNow] = useState<Date | null>(null);
 
@@ -32,24 +50,19 @@ export function DialClock({ className }: { className?: string }) {
       role="img"
       aria-label={now ? `Current time ${now.toLocaleTimeString()}` : "Clock"}
     >
-      {Array.from({ length: 60 }).map((_, i) => {
-        const major = i % 5 === 0;
-        const a = (i * 6 * Math.PI) / 180;
-        const inner = major ? 76 : 84;
-        return (
-          <line
-            key={i}
-            x1={100 + inner * Math.sin(a)}
-            y1={100 - inner * Math.cos(a)}
-            x2={100 + 92 * Math.sin(a)}
-            y2={100 - 92 * Math.cos(a)}
-            stroke="currentColor"
-            strokeWidth={major ? 2 : 1}
-            strokeLinecap="round"
-            opacity={major ? 0.7 : 0.22}
-          />
-        );
-      })}
+      {TICKS.map((t, i) => (
+        <line
+          key={i}
+          x1={t.x1}
+          y1={t.y1}
+          x2={t.x2}
+          y2={t.y2}
+          stroke="currentColor"
+          strokeWidth={t.major ? 2 : 1}
+          strokeLinecap="round"
+          opacity={t.major ? 0.7 : 0.22}
+        />
+      ))}
 
       <line
         x1="100"
