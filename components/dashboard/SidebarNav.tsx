@@ -27,7 +27,7 @@ export function SidebarNav({
   return (
     <div className="flex h-full flex-col bg-[#0b0b0b]">
       <div className="flex h-14 shrink-0 items-center border-b border-white/10 bg-black px-5">
-        <BrandLockup href="/dashboard" />
+        <BrandLockup href="/" />
       </div>
 
       <nav className="flex-1 overflow-y-auto px-3 py-5">
