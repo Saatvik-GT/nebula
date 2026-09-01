@@ -12,7 +12,7 @@ export function Topbar({
   accountRole?: string;
 }) {
   return (
-    <header className="flex h-14 shrink-0 items-center gap-3 border-b border-border bg-surface/80 px-4 sm:px-8">
+    <header className="flex h-14 shrink-0 items-center gap-3 border-b border-white/10 bg-[#0b0b0b] px-4 sm:px-8">
       <button
         type="button"
         onClick={onOpenNav}

@@ -31,7 +31,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     <div className="min-h-screen bg-page">
       <div className="flex min-h-screen overflow-hidden bg-page">
         {/* desktop sidebar */}
-        <aside className="hidden w-[232px] shrink-0 border-r border-border bg-surface-raised/55 lg:block">
+        <aside className="hidden w-[232px] shrink-0 border-r border-white/10 bg-[#0b0b0b] lg:block">
           <SidebarNav
             systemStatus={SYSTEM_STATUS}
             systemStatusLabel={SYSTEM_STATUS_LABEL}
@@ -48,7 +48,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               onClick={() => setNavOpen(false)}
               className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             />
-            <div className="absolute inset-y-0 left-0 w-[280px] border-r border-border bg-surface">
+            <div className="absolute inset-y-0 left-0 w-[280px] border-r border-white/10 bg-[#0b0b0b]">
               <button
                 type="button"
                 onClick={() => setNavOpen(false)}
